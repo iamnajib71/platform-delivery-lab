@@ -41,6 +41,10 @@ p95 above 300ms for 30s, a failed scrape for 30s, and a Degraded canary for 5s.
 The alerts are visible at http://localhost:9098/alerts. There is no external paging
 receiver or email delivery; this free lab deliberately has no third-party secrets.
 
+Argo's metrics job discovers each controller pod separately. Scraping the shared metrics
+Service can land on a follower with no rollout state. The abort alert accepts both `Abort`
+and `Degraded` metric phases to cover the controller's phase vocabulary.
+
 ## Reset
 
 `pwsh -File scripts/lab.ps1 down` destroys only the Terraform-managed lab cluster.
