@@ -142,6 +142,20 @@ def main():
         "AUTOMATIC ROLLBACK VERIFIED: canary weight 0; 30/30 requests served by good release",
         flush=True,
     )
+    deadline = time.monotonic() + 45
+    while time.monotonic() < deadline:
+        with urllib.request.urlopen("http://127.0.0.1:9098/api/v1/alerts", timeout=5) as response:
+            alerts = json.load(response)["data"]["alerts"]
+        if any(
+            alert["labels"]["alertname"] == "CanaryDegraded" and alert["state"] == "firing"
+            for alert in alerts
+        ):
+            break
+        time.sleep(2)
+    else:
+        raise AssertionError("CanaryDegraded alert did not fire after automatic abort")
+    (args.output / "alerts.json").write_text(json.dumps(alerts, indent=2))
+    print("PROMETHEUS ALERT VERIFIED: CanaryDegraded is firing", flush=True)
     logs = kube(
         "-n",
         "argo-rollouts",
@@ -167,6 +181,7 @@ def main():
         "recovery_successes": 30,
         "stable_hash": stable["stableRS"],
         "bad_hash": aborted["currentPodHash"],
+        "rollback_alert": "firing",
     }
     (args.output / "summary.json").write_text(json.dumps(report, indent=2))
     print(json.dumps(report), flush=True)

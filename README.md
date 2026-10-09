@@ -131,7 +131,7 @@ reports and SPDX SBOMs are uploaded with the delivery evidence.
 Measured results and source files are listed in [docs/evidence/README.md](docs/evidence/README.md).
 The demo asserts two successful analysis runs for the good candidate, a failed error-rate
 analysis for the injected candidate, zero canary traffic after abort, and **30/30 stable HTTP 200
-responses** after recovery. Raw controller logs, Kubernetes events, AnalysisRuns, Rollouts, and
+responses** after recovery, plus a firing `CanaryDegraded` alert. Raw controller logs, Kubernetes events, AnalysisRuns, Rollouts, and
 timestamped timelines are preserved; no metrics or run outputs are fabricated.
 
 Candidate gates use the latest pod hash, rather than a fleet-wide average that could hide a

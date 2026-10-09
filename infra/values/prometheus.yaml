@@ -91,7 +91,7 @@ serverFiles:
             annotations:
               summary: A delivery lab pod cannot be scraped
           - alert: CanaryDegraded
-            expr: rollout_info{phase="Degraded"} == 1
+            expr: rollout_info{phase=~"Degraded|Abort"} == 1
             for: 5s
             labels:
               severity: warning
