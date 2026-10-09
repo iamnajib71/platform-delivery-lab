@@ -1,0 +1,252 @@
+{
+  "apiVersion": "argoproj.io/v1alpha1",
+  "kind": "Rollout",
+  "metadata": {
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Rollout\",\"metadata\":{\"annotations\":{},\"name\":\"ticket-api\",\"namespace\":\"delivery-lab\"},\"spec\":{\"replicas\":2,\"revisionHistoryLimit\":4,\"selector\":{\"matchLabels\":{\"app\":\"ticket-api\"}},\"strategy\":{\"canary\":{\"abortScaleDownDelaySeconds\":15,\"canaryService\":\"ticket-canary\",\"maxSurge\":1,\"maxUnavailable\":0,\"scaleDownDelaySeconds\":15,\"stableService\":\"ticket-stable\",\"steps\":[{\"setWeight\":10},{\"pause\":{\"duration\":\"35s\"}},{\"analysis\":{\"args\":[{\"name\":\"canary-hash\",\"valueFrom\":{\"podTemplateHashValue\":\"Latest\"}}],\"templates\":[{\"templateName\":\"candidate-health\"}]}},{\"setWeight\":50},{\"pause\":{\"duration\":\"35s\"}},{\"analysis\":{\"args\":[{\"name\":\"canary-hash\",\"valueFrom\":{\"podTemplateHashValue\":\"Latest\"}}],\"templates\":[{\"templateName\":\"candidate-health\"}]}},{\"setWeight\":100},{\"pause\":{\"duration\":\"5s\"}}],\"trafficRouting\":{\"nginx\":{\"stableIngress\":\"ticket-api\"}}}},\"template\":{\"metadata\":{\"annotations\":{\"prometheus.io/scrape\":\"true\"},\"labels\":{\"app\":\"ticket-api\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"RELEASE\",\"value\":\"baseline\"},{\"name\":\"INJECT_ERROR\",\"value\":\"false\"},{\"name\":\"WORKER_URL\",\"value\":\"http://notification-worker:8000\"}],\"image\":\"ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":\"http\"},\"periodSeconds\":10},\"name\":\"ticket-api\",\"ports\":[{\"containerPort\":8000,\"name\":\"http\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/ready\",\"port\":\"http\"},\"periodSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"50m\",\"memory\":\"64Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}}],\"securityContext\":{\"runAsGroup\":10001,\"runAsNonRoot\":true,\"runAsUser\":10001,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}}}}}}\n",
+      "rollout.argoproj.io/revision": "6"
+    },
+    "creationTimestamp": "2026-10-09T14:17:52Z",
+    "generation": 6,
+    "name": "ticket-api",
+    "namespace": "delivery-lab",
+    "resourceVersion": "4669",
+    "uid": "4af30670-15d0-4f46-a9d7-05b9b5bf0b41"
+  },
+  "spec": {
+    "replicas": 2,
+    "revisionHistoryLimit": 4,
+    "selector": {
+      "matchLabels": {
+        "app": "ticket-api"
+      }
+    },
+    "strategy": {
+      "canary": {
+        "abortScaleDownDelaySeconds": 15,
+        "canaryService": "ticket-canary",
+        "maxSurge": 1,
+        "maxUnavailable": 0,
+        "scaleDownDelaySeconds": 15,
+        "stableService": "ticket-stable",
+        "steps": [
+          {
+            "setWeight": 10
+          },
+          {
+            "pause": {
+              "duration": "35s"
+            }
+          },
+          {
+            "analysis": {
+              "args": [
+                {
+                  "name": "canary-hash",
+                  "valueFrom": {
+                    "podTemplateHashValue": "Latest"
+                  }
+                }
+              ],
+              "templates": [
+                {
+                  "templateName": "candidate-health"
+                }
+              ]
+            }
+          },
+          {
+            "setWeight": 50
+          },
+          {
+            "pause": {
+              "duration": "35s"
+            }
+          },
+          {
+            "analysis": {
+              "args": [
+                {
+                  "name": "canary-hash",
+                  "valueFrom": {
+                    "podTemplateHashValue": "Latest"
+                  }
+                }
+              ],
+              "templates": [
+                {
+                  "templateName": "candidate-health"
+                }
+              ]
+            }
+          },
+          {
+            "setWeight": 100
+          },
+          {
+            "pause": {
+              "duration": "5s"
+            }
+          }
+        ],
+        "trafficRouting": {
+          "nginx": {
+            "stableIngress": "ticket-api"
+          }
+        }
+      }
+    },
+    "template": {
+      "metadata": {
+        "annotations": {
+          "prometheus.io/scrape": "true"
+        },
+        "labels": {
+          "app": "ticket-api"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "RELEASE",
+                "value": "good-142944"
+              },
+              {
+                "name": "INJECT_ERROR",
+                "value": "false"
+              },
+              {
+                "name": "WORKER_URL",
+                "value": "http://notification-worker:8000"
+              }
+            ],
+            "image": "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local",
+            "imagePullPolicy": "IfNotPresent",
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": "http"
+              },
+              "periodSeconds": 10
+            },
+            "name": "ticket-api",
+            "ports": [
+              {
+                "containerPort": 8000,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": "http"
+              },
+              "periodSeconds": 3
+            },
+            "resources": {
+              "limits": {
+                "cpu": "1",
+                "memory": "192Mi"
+              },
+              "requests": {
+                "cpu": "50m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "securityContext": {
+          "runAsGroup": 10001,
+          "runAsNonRoot": true,
+          "runAsUser": 10001,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "HPAReplicas": 4,
+    "availableReplicas": 4,
+    "blueGreen": {},
+    "canary": {
+      "weights": {
+        "canary": {
+          "podTemplateHash": "5f45f7dfc9",
+          "serviceName": "ticket-canary",
+          "weight": 0
+        },
+        "stable": {
+          "podTemplateHash": "5f45f7dfc9",
+          "serviceName": "ticket-stable",
+          "weight": 100
+        }
+      }
+    },
+    "conditions": [
+      {
+        "lastTransitionTime": "2026-10-09T14:17:58Z",
+        "lastUpdateTime": "2026-10-09T14:17:58Z",
+        "message": "Rollout has minimum availability",
+        "reason": "AvailableReason",
+        "status": "True",
+        "type": "Available"
+      },
+      {
+        "lastTransitionTime": "2026-10-09T14:24:18Z",
+        "lastUpdateTime": "2026-10-09T14:24:18Z",
+        "message": "Rollout is not healthy",
+        "reason": "RolloutHealthy",
+        "status": "False",
+        "type": "Healthy"
+      },
+      {
+        "lastTransitionTime": "2026-10-09T14:31:42Z",
+        "lastUpdateTime": "2026-10-09T14:31:42Z",
+        "message": "Rollout is paused",
+        "reason": "RolloutPaused",
+        "status": "False",
+        "type": "Paused"
+      },
+      {
+        "lastTransitionTime": "2026-10-09T14:31:42Z",
+        "lastUpdateTime": "2026-10-09T14:31:42Z",
+        "message": "ReplicaSet \"ticket-api-5f45f7dfc9\" is progressing.",
+        "reason": "ReplicaSetUpdated",
+        "status": "True",
+        "type": "Progressing"
+      },
+      {
+        "lastTransitionTime": "2026-10-09T14:31:42Z",
+        "lastUpdateTime": "2026-10-09T14:31:42Z",
+        "message": "RolloutCompleted",
+        "reason": "RolloutCompleted",
+        "status": "True",
+        "type": "Completed"
+      }
+    ],
+    "currentPodHash": "5f45f7dfc9",
+    "currentStepHash": "698d8fc6db",
+    "currentStepIndex": 8,
+    "observedGeneration": "6",
+    "phase": "Healthy",
+    "readyReplicas": 4,
+    "replicas": 4,
+    "selector": "app=ticket-api",
+    "stableRS": "5f45f7dfc9",
+    "updatedReplicas": 2
+  }
+}

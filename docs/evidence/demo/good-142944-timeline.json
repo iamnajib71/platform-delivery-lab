@@ -1,0 +1,562 @@
+[
+  {
+    "at": "2026-10-09T14:29:44.693776+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 0,
+    "weight": 0,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:29:46.873038+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 0,
+    "weight": 0,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:29:49.042938+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:29:51.212275+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:29:53.387715+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:29:55.561336+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:29:57.730036+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:29:59.899961+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:02.078661+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:04.249358+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:06.420702+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:08.587172+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:10.754056+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:12.933080+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:15.102148+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:17.278613+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:19.453106+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:21.616791+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:23.793413+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:25.982507+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:28.155453+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:30.334664+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:32.509027+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:34.681170+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:36.854679+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:39.061122+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:41.234529+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 2,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:43.412588+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:45.594506+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:47.768235+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:49.941645+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:52.127590+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:54.303019+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:56.484620+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:30:58.674730+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:00.839859+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:03.009817+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:05.204646+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:07.381622+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:09.559489+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:11.743202+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:13.958965+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:16.140771+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 4,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:18.311113+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 5,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:20.490970+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 5,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:22.661599+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 5,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:24.845301+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 5,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:27.024267+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 5,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:29.199162+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 5,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:31.368740+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 5,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:33.543097+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 5,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:35.738105+00:00",
+    "release": "good-142944",
+    "phase": "Progressing",
+    "step": 6,
+    "weight": 50,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:37.931727+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 7,
+    "weight": 100,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:40.109453+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 7,
+    "weight": 100,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:42.276942+00:00",
+    "release": "good-142944",
+    "phase": "Paused",
+    "step": 7,
+    "weight": 100,
+    "abort": false,
+    "stable_hash": "57cd7dc4f5",
+    "candidate_hash": "5f45f7dfc9"
+  },
+  {
+    "at": "2026-10-09T14:31:44.448832+00:00",
+    "release": "good-142944",
+    "phase": "Healthy",
+    "step": 8,
+    "weight": 0,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "5f45f7dfc9"
+  }
+]

@@ -1,0 +1,95 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: ticket-api
+  namespace: delivery-lab
+spec:
+  replicas: 2
+  revisionHistoryLimit: 4
+  selector:
+    matchLabels:
+      app: ticket-api
+  template:
+    metadata:
+      labels:
+        app: ticket-api
+      annotations:
+        prometheus.io/scrape: 'true'
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: ticket-api
+          image: ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: RELEASE
+              value: baseline
+            - name: INJECT_ERROR
+              value: 'false'
+            - name: WORKER_URL
+              value: http://notification-worker:8000
+          ports:
+            - name: http
+              containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: '1'
+              memory: 192Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+  strategy:
+    canary:
+      stableService: ticket-stable
+      canaryService: ticket-canary
+      maxSurge: 1
+      maxUnavailable: 0
+      scaleDownDelaySeconds: 15
+      abortScaleDownDelaySeconds: 15
+      trafficRouting:
+        nginx:
+          stableIngress: ticket-api
+      steps:
+        - setWeight: 10
+        - pause:
+            duration: 35s
+        - analysis:
+            templates:
+              - templateName: candidate-health
+            args:
+              - name: canary-hash
+                valueFrom:
+                  podTemplateHashValue: Latest
+        - setWeight: 50
+        - pause:
+            duration: 35s
+        - analysis:
+            templates:
+              - templateName: candidate-health
+            args:
+              - name: canary-hash
+                valueFrom:
+                  podTemplateHashValue: Latest
+        - setWeight: 100
+        - pause:
+            duration: 5s

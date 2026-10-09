@@ -1,0 +1,99 @@
+alertmanager:
+  enabled: false
+prometheus-pushgateway:
+  enabled: false
+prometheus-node-exporter:
+  enabled: false
+kube-state-metrics:
+  enabled: false
+scrapeConfigs:
+  kubernetes-api-servers:
+    enabled: false
+  kubernetes-nodes:
+    enabled: false
+  kubernetes-nodes-cadvisor:
+    enabled: false
+  kubernetes-pods:
+    enabled: false
+  kubernetes-pods-slow:
+    enabled: false
+  kubernetes-service-endpoints:
+    enabled: false
+  kubernetes-service-endpoints-slow:
+    enabled: false
+  kubernetes-services:
+    enabled: false
+  prometheus-pushgateway:
+    enabled: false
+server:
+  persistentVolume:
+    enabled: false
+  retention: 2h
+  service:
+    type: NodePort
+    nodePort: 30909
+  resources:
+    requests:
+      cpu: 100m
+      memory: 192Mi
+  global:
+    scrape_interval: 5s
+    scrape_timeout: 4s
+    evaluation_interval: 5s
+serverFiles:
+  prometheus.yml:
+    rule_files:
+      - /etc/config/alerting_rules.yml
+    scrape_configs:
+      - job_name: lab-services
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_namespace]
+            action: keep
+            regex: delivery-lab
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: 'true'
+          - source_labels: [__meta_kubernetes_pod_ip]
+            target_label: __address__
+            replacement: '$1:8000'
+          - source_labels: [__meta_kubernetes_pod_label_rollouts_pod_template_hash]
+            target_label: pod_hash
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+      - job_name: argo-rollouts
+        static_configs:
+          - targets: ['argo-rollouts-metrics.argo-rollouts.svc.cluster.local:8090']
+  alerting_rules.yml:
+    groups:
+      - name: delivery-lab
+        rules:
+          - alert: TicketAPIHighErrorRate
+            expr: sum(rate(lab_http_requests_total{service="ticket-api",status=~"5.."}[1m])) / sum(rate(lab_http_requests_total{service="ticket-api"}[1m])) > 0.02
+            for: 15s
+            labels:
+              severity: warning
+            annotations:
+              summary: Ticket API error rate exceeds 2%; inspect candidate AnalysisRun
+          - alert: TicketAPIHighLatency
+            expr: histogram_quantile(0.95, sum by (le) (rate(lab_http_request_duration_seconds_bucket{service="ticket-api"}[1m]))) > 0.3
+            for: 30s
+            labels:
+              severity: warning
+            annotations:
+              summary: Ticket API p95 exceeds 300 ms
+          - alert: ServiceUnavailable
+            expr: up{job="lab-services"} == 0
+            for: 30s
+            labels:
+              severity: critical
+            annotations:
+              summary: A delivery lab pod cannot be scraped
+          - alert: CanaryDegraded
+            expr: rollout_info{phase="Degraded"} == 1
+            for: 5s
+            labels:
+              severity: warning
+            annotations:
+              summary: Canary aborted; stable traffic should be restored

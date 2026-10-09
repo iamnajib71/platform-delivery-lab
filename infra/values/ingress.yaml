@@ -1,0 +1,12 @@
+controller:
+  replicaCount: 1
+  service:
+    type: NodePort
+    nodePorts:
+      http: 30080
+  admissionWebhooks:
+    enabled: false
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi

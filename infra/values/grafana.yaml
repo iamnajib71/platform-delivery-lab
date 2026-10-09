@@ -1,0 +1,40 @@
+service:
+  type: NodePort
+  nodePort: 30300
+persistence:
+  enabled: false
+grafana.ini:
+  auth.anonymous:
+    enabled: true
+    org_role: Viewer
+  auth:
+    disable_login_form: true
+  analytics:
+    reporting_enabled: false
+    check_for_updates: false
+resources:
+  requests:
+    cpu: 50m
+    memory: 96Mi
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        uid: prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus-server.monitoring.svc.cluster.local
+        isDefault: true
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/default

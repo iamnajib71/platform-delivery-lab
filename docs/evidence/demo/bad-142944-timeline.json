@@ -1,0 +1,182 @@
+[
+  {
+    "at": "2026-10-09T14:31:44.970459+00:00",
+    "release": "bad-142944",
+    "phase": "Progressing",
+    "step": 0,
+    "weight": 0,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:31:47.153731+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:31:49.327718+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:31:51.504014+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:31:53.828462+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:31:56.007895+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:31:58.182707+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:00.354144+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:02.528894+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:04.698169+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:06.872374+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:09.043226+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:11.212285+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:13.391088+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:15.569043+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:17.736938+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:19.906300+00:00",
+    "release": "bad-142944",
+    "phase": "Paused",
+    "step": 1,
+    "weight": 10,
+    "abort": false,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  },
+  {
+    "at": "2026-10-09T14:32:22.089496+00:00",
+    "release": "bad-142944",
+    "phase": "Degraded",
+    "step": 0,
+    "weight": 0,
+    "abort": true,
+    "stable_hash": "5f45f7dfc9",
+    "candidate_hash": "7d6f4f4544"
+  }
+]

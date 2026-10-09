@@ -1,0 +1,189 @@
+LAST SEEN   TYPE      REASON                   OBJECT                                      MESSAGE
+15m         Warning   ClusterIPNotAllocated    service/ticket-canary                       Cluster IP [IPv4]: 10.96.175.235 is not allocated; repairing
+15m         Normal    Scheduled                pod/notification-worker-6976bc6bbd-5xrwk    Successfully assigned delivery-lab/notification-worker-6976bc6bbd-5xrwk to platform-delivery-lab-control-plane
+15m         Normal    SuccessfulCreate         replicaset/web-frontend-6f4b4495f7          Created pod: web-frontend-6f4b4495f7-btfvt
+15m         Normal    Scheduled                pod/web-frontend-6f4b4495f7-btfvt           Successfully assigned delivery-lab/web-frontend-6f4b4495f7-btfvt to platform-delivery-lab-control-plane
+15m         Normal    ScalingReplicaSet        deployment/web-frontend                     Scaled up replica set web-frontend-6f4b4495f7 from 0 to 1
+15m         Normal    RolloutAddedToInformer   rollout/ticket-api                          Rollout resource added to informer: delivery-lab/ticket-api
+15m         Normal    ScalingReplicaSet        deployment/notification-worker              Scaled up replica set notification-worker-6976bc6bbd from 0 to 1
+15m         Normal    SuccessfulCreate         replicaset/notification-worker-6976bc6bbd   Created pod: notification-worker-6976bc6bbd-5xrwk
+15m         Normal    RolloutUpdated           rollout/ticket-api                          Rollout updated to revision 1
+15m         Normal    RolloutCompleted         rollout/ticket-api                          Rollout completed update to revision 1 (68dc84478): Initial deploy
+15m         Normal    Started                  pod/ticket-api-68dc84478-zc4rj              Container started
+15m         Normal    Started                  pod/web-frontend-6f4b4495f7-btfvt           Container started
+15m         Normal    Scheduled                pod/ticket-api-68dc84478-zc4rj              Successfully assigned delivery-lab/ticket-api-68dc84478-zc4rj to platform-delivery-lab-control-plane
+15m         Normal    Started                  pod/notification-worker-6976bc6bbd-5xrwk    Container started
+15m         Normal    Scheduled                pod/ticket-api-68dc84478-2xdk6              Successfully assigned delivery-lab/ticket-api-68dc84478-2xdk6 to platform-delivery-lab-control-plane
+15m         Normal    ScalingReplicaSet        rollout/ticket-api                          Scaled up ReplicaSet ticket-api-68dc84478 (revision 1) from 0 to 2
+15m         Normal    RolloutNotCompleted      rollout/ticket-api                          Rollout not completed, started update to revision 1 (68dc84478)
+15m         Normal    NewReplicaSetCreated     rollout/ticket-api                          Created ReplicaSet ticket-api-68dc84478 (revision 1)
+15m         Normal    SuccessfulCreate         replicaset/ticket-api-68dc84478             Created pod: ticket-api-68dc84478-zc4rj
+15m         Normal    SuccessfulCreate         replicaset/ticket-api-68dc84478             Created pod: ticket-api-68dc84478-2xdk6
+15m         Normal    Started                  pod/ticket-api-68dc84478-2xdk6              Container started
+15m         Normal    Pulled                   pod/ticket-api-68dc84478-2xdk6              Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+15m         Normal    Created                  pod/ticket-api-68dc84478-2xdk6              Container created
+15m         Normal    Pulled                   pod/web-frontend-6f4b4495f7-btfvt           Container image "ghcr.io/iamnajib71/platform-delivery-lab/web-frontend:local" already present on machine and can be accessed by the pod
+15m         Normal    Pulled                   pod/notification-worker-6976bc6bbd-5xrwk    Container image "ghcr.io/iamnajib71/platform-delivery-lab/notification-worker:local" already present on machine and can be accessed by the pod
+15m         Normal    Created                  pod/ticket-api-68dc84478-zc4rj              Container created
+15m         Normal    Created                  pod/web-frontend-6f4b4495f7-btfvt           Container created
+15m         Normal    Pulled                   pod/ticket-api-68dc84478-zc4rj              Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+15m         Normal    Created                  pod/notification-worker-6976bc6bbd-5xrwk    Container created
+15m         Warning   Unhealthy                pod/ticket-api-68dc84478-2xdk6              Readiness probe failed: Get "http://10.244.0.12:8000/ready": dial tcp 10.244.0.12:8000: connect: connection refused
+15m         Warning   Unhealthy                pod/notification-worker-6976bc6bbd-5xrwk    Readiness probe failed: Get "http://10.244.0.11:8000/ready": dial tcp 10.244.0.11:8000: connect: connection refused
+15m         Warning   Unhealthy                pod/web-frontend-6f4b4495f7-btfvt           Readiness probe failed: Get "http://10.244.0.10:8000/ready": dial tcp 10.244.0.10:8000: connect: connection refused
+15m         Normal    SwitchService            rollout/ticket-api                          Switched selector for service 'ticket-canary' from '' to '68dc84478'
+15m         Normal    SwitchService            rollout/ticket-api                          Switched selector for service 'ticket-stable' from '' to '68dc84478'
+15m         Normal    TrafficWeightUpdated     rollout/ticket-api                          Traffic weight updated to 0
+15m         Normal    CreatingCanaryIngress    rollout/ticket-api                          Creating canary ingress `ticket-api-ticket-api-canary` with weight `0`
+14m         Normal    Sync                     ingress/console                             Scheduled for sync
+14m         Normal    Sync                     ingress/ticket-api                          Scheduled for sync
+13m         Normal    ScalingReplicaSet        deployment/load-generator                   Scaled up replica set load-generator-569545fdf from 0 to 1
+13m         Normal    Scheduled                pod/load-generator-569545fdf-nnrzk          Successfully assigned delivery-lab/load-generator-569545fdf-nnrzk to platform-delivery-lab-control-plane
+13m         Normal    SuccessfulCreate         replicaset/load-generator-569545fdf         Created pod: load-generator-569545fdf-nnrzk
+13m         Normal    Pulling                  pod/load-generator-569545fdf-nnrzk          Pulling image "python:3.12-slim-bookworm"
+12m         Normal    Pulled                   pod/load-generator-569545fdf-nnrzk          Successfully pulled image "python:3.12-slim-bookworm" in 3.859s (3.859s including waiting). Image size: 47572460 bytes.
+12m         Normal    Started                  pod/load-generator-569545fdf-nnrzk          Container started
+12m         Normal    Created                  pod/load-generator-569545fdf-nnrzk          Container created
+11m         Normal    RolloutNotCompleted      rollout/ticket-api                          Rollout not completed, started update to revision 2 (7b49dc57cd)
+11m         Normal    TrafficWeightUpdated     rollout/ticket-api                          Traffic weight updated
+11m         Normal    Scheduled                pod/ticket-api-7b49dc57cd-cfw8r             Successfully assigned delivery-lab/ticket-api-7b49dc57cd-cfw8r to platform-delivery-lab-control-plane
+11m         Normal    NewReplicaSetCreated     rollout/ticket-api                          Created ReplicaSet ticket-api-7b49dc57cd (revision 2)
+11m         Normal    RolloutUpdated           rollout/ticket-api                          Rollout updated to revision 2
+11m         Normal    SuccessfulCreate         replicaset/ticket-api-7b49dc57cd            Created pod: ticket-api-7b49dc57cd-cfw8r
+11m         Normal    ScalingReplicaSet        rollout/ticket-api                          Scaled up ReplicaSet ticket-api-7b49dc57cd (revision 2) from 0 to 1
+11m         Normal    Pulled                   pod/ticket-api-7b49dc57cd-cfw8r             Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+11m         Normal    Created                  pod/ticket-api-7b49dc57cd-cfw8r             Container created
+11m         Normal    Started                  pod/ticket-api-7b49dc57cd-cfw8r             Container started
+11m         Warning   Unhealthy                pod/ticket-api-7b49dc57cd-cfw8r             Readiness probe failed: Get "http://10.244.0.16:8000/ready": dial tcp 10.244.0.16:8000: connect: connection refused
+11m         Normal    RolloutPaused            rollout/ticket-api                          Rollout is paused (CanaryPauseStep)
+11m         Normal    RolloutStepCompleted     rollout/ticket-api                          Rollout step 1/7 completed (setWeight: 10)
+11m         Normal    SwitchService            rollout/ticket-api                          Switched selector for service 'ticket-canary' from '68dc84478' to '7b49dc57cd'
+11m         Normal    PatchingCanaryIngress    rollout/ticket-api                          Updating Ingress `ticket-api-ticket-api-canary` to desiredWeight '10'
+11m         Normal    TrafficWeightUpdated     rollout/ticket-api                          Traffic weight updated from 0 to 10
+11m         Normal    RolloutStepCompleted     rollout/ticket-api                          Rollout step 2/7 completed (pause: 35s)
+11m         Normal    RolloutResumed           rollout/ticket-api                          Rollout is resumed
+11m         Normal    AnalysisRunRunning       rollout/ticket-api                          Step Analysis Run 'ticket-api-7b49dc57cd-2-2' Status New: 'Running' Previous: ''
+10m         Normal    AnalysisRunSuccessful    analysisrun/ticket-api-7b49dc57cd-2-2       Analysis Completed. Result: Successful
+10m         Normal    MetricSuccessful         analysisrun/ticket-api-7b49dc57cd-2-2       Metric 'p95-latency' Completed. Result: Successful
+10m         Normal    MetricSuccessful         analysisrun/ticket-api-7b49dc57cd-2-2       Metric 'error-rate' Completed. Result: Successful
+10m         Normal    MetricSuccessful         analysisrun/ticket-api-7b49dc57cd-2-2       Metric 'sufficient-traffic' Completed. Result: Successful
+10m         Normal    RolloutStepCompleted     rollout/ticket-api                          Rollout step 3/7 completed (analysis)
+10m         Normal    AnalysisRunSuccessful    rollout/ticket-api                          Step Analysis Run 'ticket-api-7b49dc57cd-2-2' Status New: 'Successful' Previous: 'Running'
+10m         Normal    RolloutStepCompleted     rollout/ticket-api                          Rollout step 5/7 completed (pause: 35s)
+10m         Normal    MetricSuccessful         analysisrun/ticket-api-7b49dc57cd-2-5       Metric 'error-rate' Completed. Result: Successful
+10m         Normal    Scheduled                pod/ticket-api-7b49dc57cd-85vgs             Successfully assigned delivery-lab/ticket-api-7b49dc57cd-85vgs to platform-delivery-lab-control-plane
+10m         Normal    Pulled                   pod/ticket-api-7b49dc57cd-85vgs             Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+10m         Normal    Created                  pod/ticket-api-7b49dc57cd-85vgs             Container created
+10m         Normal    Started                  pod/ticket-api-7b49dc57cd-85vgs             Container started
+10m         Normal    AnalysisRunSuccessful    analysisrun/ticket-api-7b49dc57cd-2-5       Analysis Completed. Result: Successful
+10m         Normal    SuccessfulCreate         replicaset/ticket-api-7b49dc57cd            Created pod: ticket-api-7b49dc57cd-85vgs
+10m         Normal    MetricSuccessful         analysisrun/ticket-api-7b49dc57cd-2-5       Metric 'p95-latency' Completed. Result: Successful
+10m         Normal    MetricSuccessful         analysisrun/ticket-api-7b49dc57cd-2-5       Metric 'sufficient-traffic' Completed. Result: Successful
+10m         Warning   Unhealthy                pod/ticket-api-7b49dc57cd-85vgs             Readiness probe failed: Get "http://10.244.0.17:8000/ready": dial tcp 10.244.0.17:8000: connect: connection refused
+9m44s       Normal    Killing                  pod/ticket-api-68dc84478-2xdk6              Stopping container ticket-api
+9m44s       Normal    SuccessfulDelete         replicaset/ticket-api-68dc84478             Deleted pod: ticket-api-68dc84478-2xdk6
+9m44s       Warning   Unhealthy                pod/ticket-api-68dc84478-zc4rj              Readiness probe failed: Get "http://10.244.0.13:8000/ready": dial tcp 10.244.0.13:8000: connect: connection refused
+9m44s       Normal    SuccessfulDelete         replicaset/ticket-api-68dc84478             Deleted pod: ticket-api-68dc84478-zc4rj
+9m44s       Normal    Killing                  pod/ticket-api-68dc84478-zc4rj              Stopping container ticket-api
+9m43s       Warning   Unhealthy                pod/ticket-api-68dc84478-2xdk6              Readiness probe failed: Get "http://10.244.0.12:8000/ready": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+9m10s       Normal    SuccessfulCreate         replicaset/ticket-api-68dc84478             Created pod: ticket-api-68dc84478-t4wk6
+9m10s       Normal    Scheduled                pod/ticket-api-68dc84478-t4wk6              Successfully assigned delivery-lab/ticket-api-68dc84478-t4wk6 to platform-delivery-lab-control-plane
+9m9s        Normal    Started                  pod/ticket-api-68dc84478-t4wk6              Container started
+9m9s        Normal    Created                  pod/ticket-api-68dc84478-t4wk6              Container created
+9m9s        Normal    Pulled                   pod/ticket-api-68dc84478-t4wk6              Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+9m8s        Warning   Unhealthy                pod/ticket-api-68dc84478-t4wk6              Readiness probe failed: Get "http://10.244.0.18:8000/ready": dial tcp 10.244.0.18:8000: connect: connection refused
+8m12s       Normal    MetricSuccessful         analysisrun/ticket-api-68dc84478-3-2        Metric 'sufficient-traffic' Completed. Result: Successful
+8m12s       Normal    AnalysisRunSuccessful    analysisrun/ticket-api-68dc84478-3-2        Analysis Completed. Result: Successful
+8m12s       Normal    MetricSuccessful         analysisrun/ticket-api-68dc84478-3-2        Metric 'error-rate' Completed. Result: Successful
+8m12s       Normal    MetricSuccessful         analysisrun/ticket-api-68dc84478-3-2        Metric 'p95-latency' Completed. Result: Successful
+7m17s       Normal    AnalysisRunSuccessful    analysisrun/ticket-api-68dc84478-3-5        Analysis Completed. Result: Successful
+7m17s       Normal    MetricSuccessful         analysisrun/ticket-api-68dc84478-3-5        Metric 'p95-latency' Completed. Result: Successful
+7m17s       Normal    SuccessfulCreate         replicaset/ticket-api-68dc84478             Created pod: ticket-api-68dc84478-krp27
+7m17s       Normal    MetricSuccessful         analysisrun/ticket-api-68dc84478-3-5        Metric 'sufficient-traffic' Completed. Result: Successful
+7m17s       Normal    MetricSuccessful         analysisrun/ticket-api-68dc84478-3-5        Metric 'error-rate' Completed. Result: Successful
+7m17s       Normal    Started                  pod/ticket-api-68dc84478-krp27              Container started
+7m17s       Normal    Created                  pod/ticket-api-68dc84478-krp27              Container created
+7m17s       Normal    Pulled                   pod/ticket-api-68dc84478-krp27              Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+7m17s       Normal    Scheduled                pod/ticket-api-68dc84478-krp27              Successfully assigned delivery-lab/ticket-api-68dc84478-krp27 to platform-delivery-lab-control-plane
+7m16s       Warning   Unhealthy                pod/ticket-api-68dc84478-krp27              Readiness probe failed: Get "http://10.244.0.19:8000/ready": dial tcp 10.244.0.19:8000: connect: connection refused
+7m7s        Normal    Scheduled                pod/ticket-api-57cd7dc4f5-cgfhk             Successfully assigned delivery-lab/ticket-api-57cd7dc4f5-cgfhk to platform-delivery-lab-control-plane
+7m7s        Normal    SuccessfulCreate         replicaset/ticket-api-57cd7dc4f5            Created pod: ticket-api-57cd7dc4f5-cgfhk
+7m6s        Normal    Created                  pod/ticket-api-57cd7dc4f5-cgfhk             Container created
+7m6s        Normal    Started                  pod/ticket-api-57cd7dc4f5-cgfhk             Container started
+7m6s        Normal    Pulled                   pod/ticket-api-57cd7dc4f5-cgfhk             Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+7m5s        Warning   Unhealthy                pod/ticket-api-57cd7dc4f5-cgfhk             Readiness probe failed: Get "http://10.244.0.20:8000/ready": dial tcp 10.244.0.20:8000: connect: connection refused
+6m55s       Normal    Killing                  pod/ticket-api-7b49dc57cd-cfw8r             Stopping container ticket-api
+6m55s       Normal    SuccessfulDelete         replicaset/ticket-api-7b49dc57cd            Deleted pod: ticket-api-7b49dc57cd-85vgs
+6m55s       Normal    SuccessfulDelete         replicaset/ticket-api-7b49dc57cd            Deleted pod: ticket-api-7b49dc57cd-cfw8r
+6m55s       Normal    Killing                  pod/ticket-api-7b49dc57cd-85vgs             Stopping container ticket-api
+6m9s        Normal    MetricSuccessful         analysisrun/ticket-api-57cd7dc4f5-4-2       Metric 'sufficient-traffic' Completed. Result: Successful
+6m9s        Normal    AnalysisRunSuccessful    analysisrun/ticket-api-57cd7dc4f5-4-2       Analysis Completed. Result: Successful
+6m9s        Normal    MetricSuccessful         analysisrun/ticket-api-57cd7dc4f5-4-2       Metric 'p95-latency' Completed. Result: Successful
+6m9s        Normal    MetricSuccessful         analysisrun/ticket-api-57cd7dc4f5-4-2       Metric 'error-rate' Completed. Result: Successful
+5m34s       Normal    RolloutStepCompleted     rollout/ticket-api                          (combined from similar events): Rollout step 5/8 completed (pause: 35s)
+5m14s       Normal    Scheduled                pod/ticket-api-57cd7dc4f5-vg8tv             Successfully assigned delivery-lab/ticket-api-57cd7dc4f5-vg8tv to platform-delivery-lab-control-plane
+5m14s       Normal    Started                  pod/ticket-api-57cd7dc4f5-vg8tv             Container started
+5m14s       Normal    Created                  pod/ticket-api-57cd7dc4f5-vg8tv             Container created
+5m14s       Normal    SuccessfulCreate         replicaset/ticket-api-57cd7dc4f5            Created pod: ticket-api-57cd7dc4f5-vg8tv
+5m14s       Normal    Pulled                   pod/ticket-api-57cd7dc4f5-vg8tv             Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+5m14s       Normal    AnalysisRunSuccessful    analysisrun/ticket-api-57cd7dc4f5-4-5       Analysis Completed. Result: Successful
+5m14s       Normal    MetricSuccessful         analysisrun/ticket-api-57cd7dc4f5-4-5       Metric 'sufficient-traffic' Completed. Result: Successful
+5m14s       Normal    MetricSuccessful         analysisrun/ticket-api-57cd7dc4f5-4-5       Metric 'error-rate' Completed. Result: Successful
+5m14s       Normal    MetricSuccessful         analysisrun/ticket-api-57cd7dc4f5-4-5       Metric 'p95-latency' Completed. Result: Successful
+5m7s        Normal    Scheduled                pod/ticket-api-76648665b-p7c9g              Successfully assigned delivery-lab/ticket-api-76648665b-p7c9g to platform-delivery-lab-control-plane
+5m7s        Normal    SuccessfulCreate         replicaset/ticket-api-76648665b             Created pod: ticket-api-76648665b-p7c9g
+5m6s        Normal    Started                  pod/ticket-api-76648665b-p7c9g              Container started
+5m6s        Normal    Created                  pod/ticket-api-76648665b-p7c9g              Container created
+5m6s        Warning   Unhealthy                pod/ticket-api-76648665b-p7c9g              Readiness probe failed: Get "http://10.244.0.22:8000/ready": dial tcp 10.244.0.22:8000: connect: connection refused
+5m6s        Normal    Pulled                   pod/ticket-api-76648665b-p7c9g              Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+4m53s       Normal    Killing                  pod/ticket-api-68dc84478-t4wk6              Stopping container ticket-api
+4m53s       Normal    SuccessfulDelete         replicaset/ticket-api-68dc84478             Deleted pod: ticket-api-68dc84478-krp27
+4m53s       Normal    Killing                  pod/ticket-api-68dc84478-krp27              Stopping container ticket-api
+4m53s       Normal    SuccessfulDelete         replicaset/ticket-api-68dc84478             Deleted pod: ticket-api-68dc84478-t4wk6
+4m30s       Warning   RolloutAborted           rollout/ticket-api                          Rollout aborted update to revision 5: Step-based analysis phase error/failed: Metric "error-rate" assessed Failed due to failed (1) > failureLimit (0)
+4m30s       Normal    MetricSuccessful         analysisrun/ticket-api-76648665b-5-2        Metric 'sufficient-traffic' Completed. Result: Successful
+4m30s       Warning   MetricFailed             analysisrun/ticket-api-76648665b-5-2        Metric 'error-rate' Completed. Result: Failed
+4m30s       Normal    MetricSuccessful         analysisrun/ticket-api-76648665b-5-2        Metric 'p95-latency' Completed. Result: Successful
+4m30s       Warning   AnalysisRunFailed        rollout/ticket-api                          Step Analysis Run 'ticket-api-76648665b-5-2' Status New: 'Failed' Previous: 'Running'
+4m30s       Warning   AnalysisRunFailed        analysisrun/ticket-api-76648665b-5-2        Analysis Completed. Result: Failed
+4m15s       Normal    Killing                  pod/ticket-api-76648665b-p7c9g              Stopping container ticket-api
+4m15s       Normal    SuccessfulDelete         replicaset/ticket-api-76648665b             Deleted pod: ticket-api-76648665b-p7c9g
+3m45s       Normal    SuccessfulCreate         replicaset/ticket-api-5f45f7dfc9            Created pod: ticket-api-5f45f7dfc9-4h7zq
+3m45s       Normal    Scheduled                pod/ticket-api-5f45f7dfc9-4h7zq             Successfully assigned delivery-lab/ticket-api-5f45f7dfc9-4h7zq to platform-delivery-lab-control-plane
+3m45s       Normal    Pulled                   pod/ticket-api-5f45f7dfc9-4h7zq             Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+3m45s       Normal    Created                  pod/ticket-api-5f45f7dfc9-4h7zq             Container created
+3m45s       Normal    Started                  pod/ticket-api-5f45f7dfc9-4h7zq             Container started
+3m44s       Warning   Unhealthy                pod/ticket-api-5f45f7dfc9-4h7zq             Readiness probe failed: Get "http://10.244.0.24:8000/ready": dial tcp 10.244.0.24:8000: connect: connection refused
+2m48s       Normal    AnalysisRunSuccessful    analysisrun/ticket-api-5f45f7dfc9-6-2       Analysis Completed. Result: Successful
+2m48s       Normal    MetricSuccessful         analysisrun/ticket-api-5f45f7dfc9-6-2       Metric 'p95-latency' Completed. Result: Successful
+2m48s       Normal    MetricSuccessful         analysisrun/ticket-api-5f45f7dfc9-6-2       Metric 'error-rate' Completed. Result: Successful
+2m48s       Normal    MetricSuccessful         analysisrun/ticket-api-5f45f7dfc9-6-2       Metric 'sufficient-traffic' Completed. Result: Successful
+113s        Normal    MetricSuccessful         analysisrun/ticket-api-5f45f7dfc9-6-5       Metric 'p95-latency' Completed. Result: Successful
+113s        Normal    Started                  pod/ticket-api-5f45f7dfc9-24nv9             Container started
+113s        Normal    Created                  pod/ticket-api-5f45f7dfc9-24nv9             Container created
+113s        Normal    Scheduled                pod/ticket-api-5f45f7dfc9-24nv9             Successfully assigned delivery-lab/ticket-api-5f45f7dfc9-24nv9 to platform-delivery-lab-control-plane
+113s        Normal    AnalysisRunSuccessful    analysisrun/ticket-api-5f45f7dfc9-6-5       Analysis Completed. Result: Successful
+113s        Normal    MetricSuccessful         analysisrun/ticket-api-5f45f7dfc9-6-5       Metric 'sufficient-traffic' Completed. Result: Successful
+113s        Normal    MetricSuccessful         analysisrun/ticket-api-5f45f7dfc9-6-5       Metric 'error-rate' Completed. Result: Successful
+113s        Normal    Pulled                   pod/ticket-api-5f45f7dfc9-24nv9             Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+113s        Normal    SuccessfulCreate         replicaset/ticket-api-5f45f7dfc9            Created pod: ticket-api-5f45f7dfc9-24nv9
+112s        Warning   Unhealthy                pod/ticket-api-5f45f7dfc9-24nv9             Readiness probe failed: Get "http://10.244.0.25:8000/ready": dial tcp 10.244.0.25:8000: connect: connection refused
+105s        Normal    Scheduled                pod/ticket-api-7d6f4f4544-9lrfs             Successfully assigned delivery-lab/ticket-api-7d6f4f4544-9lrfs to platform-delivery-lab-control-plane
+105s        Normal    SuccessfulCreate         replicaset/ticket-api-7d6f4f4544            Created pod: ticket-api-7d6f4f4544-9lrfs
+105s        Normal    Pulled                   pod/ticket-api-7d6f4f4544-9lrfs             Container image "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" already present on machine and can be accessed by the pod
+104s        Normal    Created                  pod/ticket-api-7d6f4f4544-9lrfs             Container created
+104s        Normal    Started                  pod/ticket-api-7d6f4f4544-9lrfs             Container started
+91s         Normal    Killing                  pod/ticket-api-57cd7dc4f5-cgfhk             Stopping container ticket-api
+91s         Normal    Killing                  pod/ticket-api-57cd7dc4f5-vg8tv             Stopping container ticket-api
+91s         Normal    SuccessfulDelete         replicaset/ticket-api-57cd7dc4f5            Deleted pod: ticket-api-57cd7dc4f5-vg8tv
+91s         Normal    SuccessfulDelete         replicaset/ticket-api-57cd7dc4f5            Deleted pod: ticket-api-57cd7dc4f5-cgfhk
+68s         Normal    Sync                     ingress/ticket-api-ticket-api-canary        Scheduled for sync
+68s         Warning   RolloutAborted           rollout/ticket-api                          Rollout aborted update to revision 7: Step-based analysis phase error/failed: Metric "error-rate" assessed Failed due to failed (1) > failureLimit (0)
+68s         Warning   AnalysisRunFailed        rollout/ticket-api                          Step Analysis Run 'ticket-api-7d6f4f4544-7-2' Status New: 'Failed' Previous: 'Running'
+68s         Warning   MetricFailed             analysisrun/ticket-api-7d6f4f4544-7-2       Metric 'error-rate' Completed. Result: Failed
+68s         Warning   AnalysisRunFailed        analysisrun/ticket-api-7d6f4f4544-7-2       Analysis Completed. Result: Failed
+68s         Normal    MetricSuccessful         analysisrun/ticket-api-7d6f4f4544-7-2       Metric 'p95-latency' Completed. Result: Successful
+68s         Normal    MetricSuccessful         analysisrun/ticket-api-7d6f4f4544-7-2       Metric 'sufficient-traffic' Completed. Result: Successful
+53s         Warning   Unhealthy                pod/ticket-api-7d6f4f4544-9lrfs             Readiness probe failed: Get "http://10.244.0.26:8000/ready": dial tcp 10.244.0.26:8000: connect: connection refused
+53s         Normal    Killing                  pod/ticket-api-7d6f4f4544-9lrfs             Stopping container ticket-api
+53s         Normal    SuccessfulDelete         replicaset/ticket-api-7d6f4f4544            Deleted pod: ticket-api-7d6f4f4544-9lrfs

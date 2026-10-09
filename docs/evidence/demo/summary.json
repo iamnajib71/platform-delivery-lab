@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-09T14:33:28.883964+00:00",
+  "good_release": "good-142944",
+  "bad_release": "bad-142944",
+  "good_analysis_runs": 2,
+  "automatic_abort": true,
+  "canary_weight_after_abort": 0,
+  "recovery_requests": 30,
+  "recovery_successes": 30,
+  "stable_hash": "5f45f7dfc9",
+  "bad_hash": "7d6f4f4544"
+}

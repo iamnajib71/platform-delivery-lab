@@ -1,0 +1,75 @@
+{
+  "demo": {
+    "at": "2026-10-09T14:33:28.883964+00:00",
+    "good_release": "good-142944",
+    "bad_release": "bad-142944",
+    "good_analysis_runs": 2,
+    "automatic_abort": true,
+    "canary_weight_after_abort": 0,
+    "recovery_requests": 30,
+    "recovery_successes": 30,
+    "stable_hash": "5f45f7dfc9",
+    "bad_hash": "7d6f4f4544"
+  },
+  "measurements": {
+    "good_sufficient-traffic": [
+      84.97647811824946,
+      99.60398415936638,
+      99.12314144109799,
+      457.2365789263141,
+      471.45035581158925,
+      453.64056080308364
+    ],
+    "good_p95-latency": [
+      0.00475,
+      0.00475,
+      0.004749999999999999,
+      0.004931198910081743,
+      0.004922486033519553,
+      0.004831196581196581
+    ],
+    "good_error-rate": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bad_sufficient-traffic": [
+      86.22729574611749
+    ],
+    "bad_p95-latency": [
+      0.00475
+    ],
+    "bad_error-rate": [
+      1.0
+    ]
+  },
+  "scans": [
+    {
+      "service": "ticket-api",
+      "fixable_high_critical": 0,
+      "sbom_packages": 131,
+      "image_id": "sha256:9ea82aa998632850469523c87da873d9373ff26352c8b5ec78d03a1dd2bbec7e"
+    },
+    {
+      "service": "notification-worker",
+      "fixable_high_critical": 0,
+      "sbom_packages": 131,
+      "image_id": "sha256:63b095a259c4a9228836e7b750dfc40f51a82db295259bd567250af2b54af7f4"
+    },
+    {
+      "service": "web-frontend",
+      "fixable_high_critical": 0,
+      "sbom_packages": 131,
+      "image_id": "sha256:5a033f98a9accee1864a1a9447ebd062b33dcacab2b0392727d3a0ef7d62994a"
+    }
+  ],
+  "tests": {
+    "tests": "12",
+    "failures": "0",
+    "errors": "0",
+    "time": "0.840"
+  }
+}

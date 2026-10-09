@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: candidate-health
+  namespace: delivery-lab
+spec:
+  args:
+    - name: canary-hash
+  metrics:
+    - name: sufficient-traffic
+      interval: 10s
+      count: 3
+      failureLimit: 0
+      successCondition: len(result) == 1 && result[0] >= 20
+      provider:
+        prometheus:
+          address: http://prometheus-server.monitoring.svc.cluster.local
+          query: sum(increase(lab_http_requests_total{service="ticket-api",route="/api/tickets",pod_hash="{{args.canary-hash}}"}[30s])) or vector(0)
+    - name: error-rate
+      interval: 10s
+      count: 3
+      failureLimit: 0
+      successCondition: len(result) == 1 && !isNaN(result[0]) && !isInf(result[0]) && result[0] < 0.02
+      provider:
+        prometheus:
+          address: http://prometheus-server.monitoring.svc.cluster.local
+          query: (sum(rate(lab_http_requests_total{service="ticket-api",route="/api/tickets",pod_hash="{{args.canary-hash}}",status=~"5.."}[30s])) or vector(0)) / sum(rate(lab_http_requests_total{service="ticket-api",route="/api/tickets",pod_hash="{{args.canary-hash}}"}[30s]))
+    - name: p95-latency
+      interval: 10s
+      count: 3
+      failureLimit: 0
+      successCondition: len(result) == 1 && !isNaN(result[0]) && !isInf(result[0]) && result[0] < 0.3
+      provider:
+        prometheus:
+          address: http://prometheus-server.monitoring.svc.cluster.local
+          query: histogram_quantile(0.95, sum by (le) (rate(lab_http_request_duration_seconds_bucket{service="ticket-api",route="/api/tickets",pod_hash="{{args.canary-hash}}"}[30s])))

@@ -1,0 +1,390 @@
+[
+  {
+    "apiVersion": "argoproj.io/v1alpha1",
+    "kind": "AnalysisRun",
+    "metadata": {
+      "annotations": {
+        "rollout.argoproj.io/revision": "6"
+      },
+      "creationTimestamp": "2026-10-09T14:30:20Z",
+      "generation": 4,
+      "labels": {
+        "app": "ticket-api",
+        "rollout-type": "Step",
+        "rollouts-pod-template-hash": "5f45f7dfc9",
+        "step-index": "2"
+      },
+      "name": "ticket-api-5f45f7dfc9-6-2",
+      "namespace": "delivery-lab",
+      "ownerReferences": [
+        {
+          "apiVersion": "argoproj.io/v1alpha1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "Rollout",
+          "name": "ticket-api",
+          "uid": "4af30670-15d0-4f46-a9d7-05b9b5bf0b41"
+        }
+      ],
+      "resourceVersion": "4486",
+      "uid": "914d1dcd-9a55-402c-91c2-08852fa81aa2"
+    },
+    "spec": {
+      "args": [
+        {
+          "name": "canary-hash",
+          "value": "5f45f7dfc9"
+        }
+      ],
+      "metrics": [
+        {
+          "count": 3,
+          "failureLimit": 0,
+          "interval": "10s",
+          "name": "sufficient-traffic",
+          "provider": {
+            "prometheus": {
+              "address": "http://prometheus-server.monitoring.svc.cluster.local",
+              "authentication": {
+                "oauth2": {},
+                "sigv4": {}
+              },
+              "query": "sum(increase(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"{{args.canary-hash}}\"}[30s])) or vector(0)"
+            }
+          },
+          "successCondition": "len(result) == 1 && result[0] >= 20"
+        },
+        {
+          "count": 3,
+          "failureLimit": 0,
+          "interval": "10s",
+          "name": "error-rate",
+          "provider": {
+            "prometheus": {
+              "address": "http://prometheus-server.monitoring.svc.cluster.local",
+              "authentication": {
+                "oauth2": {},
+                "sigv4": {}
+              },
+              "query": "(sum(rate(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"{{args.canary-hash}}\",status=~\"5..\"}[30s])) or vector(0)) / sum(rate(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"{{args.canary-hash}}\"}[30s]))"
+            }
+          },
+          "successCondition": "len(result) == 1 && !isNaN(result[0]) && !isInf(result[0]) && result[0] < 0.02"
+        },
+        {
+          "count": 3,
+          "failureLimit": 0,
+          "interval": "10s",
+          "name": "p95-latency",
+          "provider": {
+            "prometheus": {
+              "address": "http://prometheus-server.monitoring.svc.cluster.local",
+              "authentication": {
+                "oauth2": {},
+                "sigv4": {}
+              },
+              "query": "histogram_quantile(0.95, sum by (le) (rate(lab_http_request_duration_seconds_bucket{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"{{args.canary-hash}}\"}[30s])))"
+            }
+          },
+          "successCondition": "len(result) == 1 && !isNaN(result[0]) && !isInf(result[0]) && result[0] < 0.3"
+        }
+      ]
+    },
+    "status": {
+      "completedAt": "2026-10-09T14:30:40Z",
+      "dryRunSummary": {},
+      "metricResults": [
+        {
+          "consecutiveSuccess": 3,
+          "count": 3,
+          "measurements": [
+            {
+              "finishedAt": "2026-10-09T14:30:20Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:20Z",
+              "value": "[84.97647811824946]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:30:30Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:30Z",
+              "value": "[99.60398415936638]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:30:40Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:40Z",
+              "value": "[99.12314144109799]"
+            }
+          ],
+          "metadata": {
+            "ResolvedPrometheusQuery": "sum(increase(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"5f45f7dfc9\"}[30s])) or vector(0)"
+          },
+          "name": "sufficient-traffic",
+          "phase": "Successful",
+          "successful": 3
+        },
+        {
+          "consecutiveSuccess": 3,
+          "count": 3,
+          "measurements": [
+            {
+              "finishedAt": "2026-10-09T14:30:20Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:20Z",
+              "value": "[0.00475]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:30:30Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:30Z",
+              "value": "[0.00475]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:30:40Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:40Z",
+              "value": "[0.004749999999999999]"
+            }
+          ],
+          "metadata": {
+            "ResolvedPrometheusQuery": "histogram_quantile(0.95, sum by (le) (rate(lab_http_request_duration_seconds_bucket{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"5f45f7dfc9\"}[30s])))"
+          },
+          "name": "p95-latency",
+          "phase": "Successful",
+          "successful": 3
+        },
+        {
+          "consecutiveSuccess": 3,
+          "count": 3,
+          "measurements": [
+            {
+              "finishedAt": "2026-10-09T14:30:20Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:20Z",
+              "value": "[0]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:30:30Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:30Z",
+              "value": "[0]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:30:40Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:30:40Z",
+              "value": "[0]"
+            }
+          ],
+          "metadata": {
+            "ResolvedPrometheusQuery": "(sum(rate(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"5f45f7dfc9\",status=~\"5..\"}[30s])) or vector(0)) / sum(rate(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"5f45f7dfc9\"}[30s]))"
+          },
+          "name": "error-rate",
+          "phase": "Successful",
+          "successful": 3
+        }
+      ],
+      "phase": "Successful",
+      "runSummary": {
+        "count": 3,
+        "successful": 3
+      },
+      "startedAt": "2026-10-09T14:30:20Z"
+    }
+  },
+  {
+    "apiVersion": "argoproj.io/v1alpha1",
+    "kind": "AnalysisRun",
+    "metadata": {
+      "annotations": {
+        "rollout.argoproj.io/revision": "6"
+      },
+      "creationTimestamp": "2026-10-09T14:31:15Z",
+      "generation": 4,
+      "labels": {
+        "app": "ticket-api",
+        "rollout-type": "Step",
+        "rollouts-pod-template-hash": "5f45f7dfc9",
+        "step-index": "5"
+      },
+      "name": "ticket-api-5f45f7dfc9-6-5",
+      "namespace": "delivery-lab",
+      "ownerReferences": [
+        {
+          "apiVersion": "argoproj.io/v1alpha1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "Rollout",
+          "name": "ticket-api",
+          "uid": "4af30670-15d0-4f46-a9d7-05b9b5bf0b41"
+        }
+      ],
+      "resourceVersion": "4613",
+      "uid": "d8b0672a-3f6f-4b2c-b735-3254116a1af5"
+    },
+    "spec": {
+      "args": [
+        {
+          "name": "canary-hash",
+          "value": "5f45f7dfc9"
+        }
+      ],
+      "metrics": [
+        {
+          "count": 3,
+          "failureLimit": 0,
+          "interval": "10s",
+          "name": "sufficient-traffic",
+          "provider": {
+            "prometheus": {
+              "address": "http://prometheus-server.monitoring.svc.cluster.local",
+              "authentication": {
+                "oauth2": {},
+                "sigv4": {}
+              },
+              "query": "sum(increase(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"{{args.canary-hash}}\"}[30s])) or vector(0)"
+            }
+          },
+          "successCondition": "len(result) == 1 && result[0] >= 20"
+        },
+        {
+          "count": 3,
+          "failureLimit": 0,
+          "interval": "10s",
+          "name": "error-rate",
+          "provider": {
+            "prometheus": {
+              "address": "http://prometheus-server.monitoring.svc.cluster.local",
+              "authentication": {
+                "oauth2": {},
+                "sigv4": {}
+              },
+              "query": "(sum(rate(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"{{args.canary-hash}}\",status=~\"5..\"}[30s])) or vector(0)) / sum(rate(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"{{args.canary-hash}}\"}[30s]))"
+            }
+          },
+          "successCondition": "len(result) == 1 && !isNaN(result[0]) && !isInf(result[0]) && result[0] < 0.02"
+        },
+        {
+          "count": 3,
+          "failureLimit": 0,
+          "interval": "10s",
+          "name": "p95-latency",
+          "provider": {
+            "prometheus": {
+              "address": "http://prometheus-server.monitoring.svc.cluster.local",
+              "authentication": {
+                "oauth2": {},
+                "sigv4": {}
+              },
+              "query": "histogram_quantile(0.95, sum by (le) (rate(lab_http_request_duration_seconds_bucket{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"{{args.canary-hash}}\"}[30s])))"
+            }
+          },
+          "successCondition": "len(result) == 1 && !isNaN(result[0]) && !isInf(result[0]) && result[0] < 0.3"
+        }
+      ]
+    },
+    "status": {
+      "completedAt": "2026-10-09T14:31:35Z",
+      "dryRunSummary": {},
+      "metricResults": [
+        {
+          "consecutiveSuccess": 3,
+          "count": 3,
+          "measurements": [
+            {
+              "finishedAt": "2026-10-09T14:31:15Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:15Z",
+              "value": "[457.2365789263141]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:31:25Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:25Z",
+              "value": "[471.45035581158925]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:31:35Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:35Z",
+              "value": "[453.64056080308364]"
+            }
+          ],
+          "metadata": {
+            "ResolvedPrometheusQuery": "sum(increase(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"5f45f7dfc9\"}[30s])) or vector(0)"
+          },
+          "name": "sufficient-traffic",
+          "phase": "Successful",
+          "successful": 3
+        },
+        {
+          "consecutiveSuccess": 3,
+          "count": 3,
+          "measurements": [
+            {
+              "finishedAt": "2026-10-09T14:31:15Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:15Z",
+              "value": "[0.004931198910081743]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:31:25Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:25Z",
+              "value": "[0.004922486033519553]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:31:35Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:35Z",
+              "value": "[0.004831196581196581]"
+            }
+          ],
+          "metadata": {
+            "ResolvedPrometheusQuery": "histogram_quantile(0.95, sum by (le) (rate(lab_http_request_duration_seconds_bucket{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"5f45f7dfc9\"}[30s])))"
+          },
+          "name": "p95-latency",
+          "phase": "Successful",
+          "successful": 3
+        },
+        {
+          "consecutiveSuccess": 3,
+          "count": 3,
+          "measurements": [
+            {
+              "finishedAt": "2026-10-09T14:31:15Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:15Z",
+              "value": "[0]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:31:25Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:25Z",
+              "value": "[0]"
+            },
+            {
+              "finishedAt": "2026-10-09T14:31:35Z",
+              "phase": "Successful",
+              "startedAt": "2026-10-09T14:31:35Z",
+              "value": "[0]"
+            }
+          ],
+          "metadata": {
+            "ResolvedPrometheusQuery": "(sum(rate(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"5f45f7dfc9\",status=~\"5..\"}[30s])) or vector(0)) / sum(rate(lab_http_requests_total{service=\"ticket-api\",route=\"/api/tickets\",pod_hash=\"5f45f7dfc9\"}[30s]))"
+          },
+          "name": "error-rate",
+          "phase": "Successful",
+          "successful": 3
+        }
+      ],
+      "phase": "Successful",
+      "runSummary": {
+        "count": 3,
+        "successful": 3
+      },
+      "startedAt": "2026-10-09T14:31:15Z"
+    }
+  }
+]

@@ -1,0 +1,110 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - run: python -m ruff check services tests scripts
+      - run: python -m ruff format --check services tests scripts
+      - run: python -m pytest -q --junitxml=artifacts/tests.xml
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.5
+          terraform_wrapper: false
+      - run: terraform -chdir=infra fmt -check && terraform -chdir=infra init -backend=false && terraform -chdir=infra validate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tests
+          path: artifacts/tests.xml
+
+  delivery:
+    needs: lint-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-dev.txt
+      - uses: docker/setup-buildx-action@v3
+      - name: Build the three non-root runtime images
+        run: |
+          mkdir -p artifacts
+          for service in ticket-api notification-worker web-frontend; do
+            docker build --build-arg SERVICE="${service//-/_}" \
+              --label org.opencontainers.image.source="https://github.com/${GITHUB_REPOSITORY}" \
+              -t "ghcr.io/${GITHUB_REPOSITORY}/${service}:${GITHUB_SHA}" .
+          done
+      - name: Trivy vulnerability gate and Syft SBOM
+        run: bash scripts/scan.sh "$GITHUB_SHA"
+      - uses: docker/login-action@v3
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push scanned images to GHCR
+        if: github.event_name != 'pull_request'
+        run: |
+          for service in ticket-api notification-worker web-frontend; do
+            docker push "ghcr.io/${GITHUB_REPOSITORY}/${service}:${GITHUB_SHA}"
+          done
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.5
+          terraform_wrapper: false
+      - name: Install pinned kind CLI
+        run: |
+          curl -fsSLo kind https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-amd64
+          curl -fsSLo kind.sha256 https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-amd64.sha256sum
+          echo "$(cut -d ' ' -f1 kind.sha256)  kind" | sha256sum -c -
+          chmod +x kind
+          sudo mv kind /usr/local/bin/kind
+          mkdir -p .kube
+      - name: Terraform creates kind and the platform from zero
+        run: |
+          terraform -chdir=infra init
+          terraform -chdir=infra plan -out=lab.tfplan
+          terraform -chdir=infra apply lab.tfplan
+      - name: Deploy exactly the scanned image bytes using shared manifests
+        run: python scripts/deploy.py --tag "$GITHUB_SHA" --load
+      - name: Smoke-test ticket creation and worker delivery
+        run: python scripts/smoke.py | tee artifacts/smoke.json
+      - name: Verify good promotion and automatic rollback of faulty candidate
+        run: python -u scripts/demo.py | tee artifacts/rollout.log
+      - name: Collect diagnostics
+        if: always()
+        run: |
+          kubectl --kubeconfig .kube/config get pods -A -o wide > artifacts/pods.txt || true
+          kubectl --kubeconfig .kube/config -n delivery-lab get events --sort-by=.lastTimestamp > artifacts/events.txt || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delivery-evidence
+          path: artifacts/
+      - name: Destroy the ephemeral platform
+        if: always()
+        run: terraform -chdir=infra destroy -auto-approve
