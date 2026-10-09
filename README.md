@@ -50,6 +50,7 @@ No email, SMS, or external message is sent.
 ![Actual Grafana dashboard after both release scenarios](docs/img/grafana.png)
 ![Actual recorded good canary rollout](docs/img/good-rollout.png)
 ![Actual recorded automatic rollback and stable recovery](docs/img/automatic-rollback.png)
+![Actual Prometheus rollback alert](docs/img/alerts.png)
 
 ## Quick start — Windows
 
@@ -127,6 +128,7 @@ reports and SPDX SBOMs are uploaded with the delivery evidence.
 | Stable recovery | 30/30 HTTP 200 from the good release | [Summary](docs/evidence/demo/summary.json) |
 | Service image scan / SBOM | 0 fixable HIGH/CRITICAL per image; 131 SPDX packages each | [Raw reports](docs/evidence/README.md) |
 | Recorded demo | 83.59 seconds at 3× playback | [Recording method](docs/recording.md) |
+| Fresh Windows checkout | 5 Terraform resources created; tests, scans, smoke, rollout and firing alert passed | [Full run](docs/evidence/windows-clean-clone/run.log) |
 
 Measured results and source files are listed in [docs/evidence/README.md](docs/evidence/README.md).
 The demo asserts two successful analysis runs for the good candidate, a failed error-rate

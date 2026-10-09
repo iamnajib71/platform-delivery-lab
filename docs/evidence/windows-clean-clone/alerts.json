@@ -1,0 +1,34 @@
+[
+  {
+    "labels": {
+      "alertname": "TicketAPIHighErrorRate",
+      "severity": "warning"
+    },
+    "annotations": {
+      "summary": "Ticket API error rate exceeds 2%; inspect candidate AnalysisRun"
+    },
+    "state": "firing",
+    "activeAt": "2026-10-09T15:05:25.197426607Z",
+    "value": "5.002506742463174e-02"
+  },
+  {
+    "labels": {
+      "alertname": "CanaryDegraded",
+      "instance": "10.244.0.8:8090",
+      "job": "argo-rollouts",
+      "name": "ticket-api",
+      "namespace": "delivery-lab",
+      "phase": "Abort",
+      "pod": "argo-rollouts-788c955c77-rfpx5",
+      "severity": "warning",
+      "strategy": "canary",
+      "traffic_router": "Nginx"
+    },
+    "annotations": {
+      "summary": "Canary aborted; stable traffic should be restored"
+    },
+    "state": "firing",
+    "activeAt": "2026-10-09T15:05:45.197426607Z",
+    "value": "1e+00"
+  }
+]

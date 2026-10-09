@@ -1,0 +1,955 @@
+Local tools ready: Terraform 1.13.5, kind 0.33.0, Helm 3.17.3
+
+[notice] A new release of pip is available: 25.3 -> 26.2.1
+[notice] To update, run: C:\Users\Nazmul\AppData\Local\Temp\platform-delivery-lab-prepublish-bee034034c80443b820ca21b6fb64a39\.venv\Scripts\python.exe -m pip install --upgrade pip
+All checks passed!
+16 files already formatted
+............                                                             [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\Nazmul\AppData\Local\Temp\platform-delivery-lab-prepublish-bee034034c80443b820ca21b6fb64a39\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+12 passed, 1 warning in 0.60s
+Client:
+ Version:           29.5.3
+ API version:       1.54
+ Go version:        go1.26.4
+ Git commit:        d1c06ef
+ Built:             Wed Jun  3 18:03:06 2026
+ OS/Arch:           windows/amd64
+ Context:           desktop-linux
+
+Server: Docker Desktop 4.79.0 (230596)
+ Engine:
+  Version:          29.5.3
+  API version:      1.54 (minimum version 1.40)
+  Go version:       go1.26.4
+  Git commit:       285b471
+  Built:            Wed Jun  3 17:59:56 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.2.5
+  GitCommit:        e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+ runc:
+  Version:          1.3.6
+  GitCommit:        v1.3.6-0-g491b69ba
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/helm from the dependency lock file
+- Reusing previous version of tehcyx/kind from the dependency lock file
+- Using previously-installed hashicorp/helm v2.17.0
+- Using previously-installed tehcyx/kind v0.11.0
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # helm_release.grafana[0m will be created
+[0m  [32m+[0m[0m resource "helm_release" "grafana" {
+      [32m+[0m[0m atomic                     = false
+      [32m+[0m[0m chart                      = "grafana"
+      [32m+[0m[0m cleanup_on_fail            = false
+      [32m+[0m[0m create_namespace           = true
+      [32m+[0m[0m dependency_update          = false
+      [32m+[0m[0m disable_crd_hooks          = false
+      [32m+[0m[0m disable_openapi_validation = false
+      [32m+[0m[0m disable_webhooks           = false
+      [32m+[0m[0m force_update               = false
+      [32m+[0m[0m id                         = (known after apply)
+      [32m+[0m[0m lint                       = false
+      [32m+[0m[0m manifest                   = (known after apply)
+      [32m+[0m[0m max_history                = 0
+      [32m+[0m[0m metadata                   = (known after apply)
+      [32m+[0m[0m name                       = "grafana"
+      [32m+[0m[0m namespace                  = "monitoring"
+      [32m+[0m[0m pass_credentials           = false
+      [32m+[0m[0m recreate_pods              = false
+      [32m+[0m[0m render_subchart_notes      = true
+      [32m+[0m[0m replace                    = false
+      [32m+[0m[0m repository                 = "https://grafana.github.io/helm-charts"
+      [32m+[0m[0m reset_values               = false
+      [32m+[0m[0m reuse_values               = false
+      [32m+[0m[0m skip_crds                  = false
+      [32m+[0m[0m status                     = "deployed"
+      [32m+[0m[0m timeout                    = 600
+      [32m+[0m[0m values                     = [
+          [32m+[0m[0m <<-EOT
+                service:
+                  type: NodePort
+                  nodePort: 30300
+                persistence:
+                  enabled: false
+                grafana.ini:
+                  auth.anonymous:
+                    enabled: true
+                    org_role: Viewer
+                  auth:
+                    disable_login_form: true
+                  analytics:
+                    reporting_enabled: false
+                    check_for_updates: false
+                resources:
+                  requests:
+                    cpu: 50m
+                    memory: 96Mi
+                datasources:
+                  datasources.yaml:
+                    apiVersion: 1
+                    datasources:
+                      - name: Prometheus
+                        uid: prometheus
+                        type: prometheus
+                        access: proxy
+                        url: http://prometheus-server.monitoring.svc.cluster.local
+                        isDefault: true
+                dashboardProviders:
+                  dashboardproviders.yaml:
+                    apiVersion: 1
+                    providers:
+                      - name: default
+                        orgId: 1
+                        folder: ''
+                        type: file
+                        disableDeletion: false
+                        editable: false
+                        options:
+                          path: /var/lib/grafana/dashboards/default
+            EOT,
+          [32m+[0m[0m <<-EOT
+                "dashboards":
+                  "default":
+                    "delivery":
+                      "json": |
+                        {
+                          "uid": "lab",
+                          "title": "Platform Delivery Lab",
+                          "schemaVersion": 39,
+                          "version": 1,
+                          "refresh": "5s",
+                          "tags": [
+                            "canary",
+                            "local",
+                            "platform"
+                          ],
+                          "time": {
+                            "from": "now-15m",
+                            "to": "now"
+                          },
+                          "timezone": "browser",
+                          "panels": [
+                            {
+                              "id": 1,
+                              "title": "Request rate by release",
+                              "type": "timeseries",
+                              "gridPos": {
+                                "h": 8,
+                                "w": 12,
+                                "x": 0,
+                                "y": 0
+                              },
+                              "datasource": {
+                                "type": "prometheus",
+                                "uid": "prometheus"
+                              },
+                              "targets": [
+                                {
+                                  "refId": "A",
+                                  "expr": "sum by (release) (rate(lab_http_requests_total{service=\"ticket-api\"}[1m]))",
+                                  "legendFormat": "{{phase}} {{release}} {{pod}}"
+                                }
+                              ],
+                              "fieldConfig": {
+                                "defaults": {
+                                  "unit": "reqps"
+                                },
+                                "overrides": []
+                              },
+                              "options": {
+                                "legend": {
+                                  "displayMode": "list",
+                                  "placement": "bottom"
+                                }
+                              }
+                            },
+                            {
+                              "id": 2,
+                              "title": "HTTP 5xx rate by release",
+                              "type": "timeseries",
+                              "gridPos": {
+                                "h": 8,
+                                "w": 12,
+                                "x": 12,
+                                "y": 0
+                              },
+                              "datasource": {
+                                "type": "prometheus",
+                                "uid": "prometheus"
+                              },
+                              "targets": [
+                                {
+                                  "refId": "A",
+                                  "expr": "(sum by (release) (rate(lab_http_requests_total{service=\"ticket-api\",status=~\"5..\"}[1m])) or on(release) (0 * sum by (release) (rate(lab_http_requests_total{service=\"ticket-api\"}[1m])))) / sum by (release) (rate(lab_http_requests_total{service=\"ticket-api\"}[1m]))",
+                                  "legendFormat": "{{phase}} {{release}} {{pod}}"
+                                }
+                              ],
+                              "fieldConfig": {
+                                "defaults": {
+                                  "unit": "percentunit",
+                                  "min": 0,
+                                  "max": 1
+                                },
+                                "overrides": []
+                              },
+                              "options": {
+                                "legend": {
+                                  "displayMode": "list",
+                                  "placement": "bottom"
+                                }
+                              }
+                            },
+                            {
+                              "id": 3,
+                              "title": "p95 request latency",
+                              "type": "timeseries",
+                              "gridPos": {
+                                "h": 8,
+                                "w": 12,
+                                "x": 0,
+                                "y": 8
+                              },
+                              "datasource": {
+                                "type": "prometheus",
+                                "uid": "prometheus"
+                              },
+                              "targets": [
+                                {
+                                  "refId": "A",
+                                  "expr": "histogram_quantile(0.95, sum by (le, release) (rate(lab_http_request_duration_seconds_bucket{service=\"ticket-api\"}[1m])))",
+                                  "legendFormat": "{{phase}} {{release}} {{pod}}"
+                                }
+                              ],
+                              "fieldConfig": {
+                                "defaults": {
+                                  "unit": "s"
+                                },
+                                "overrides": []
+                              },
+                              "options": {
+                                "legend": {
+                                  "displayMode": "list",
+                                  "placement": "bottom"
+                                }
+                              }
+                            },
+                            {
+                              "id": 4,
+                              "title": "Rollout status",
+                              "type": "timeseries",
+                              "gridPos": {
+                                "h": 8,
+                                "w": 12,
+                                "x": 12,
+                                "y": 8
+                              },
+                              "datasource": {
+                                "type": "prometheus",
+                                "uid": "prometheus"
+                              },
+                              "targets": [
+                                {
+                                  "refId": "A",
+                                  "expr": "rollout_info{name=\"ticket-api\",namespace=\"delivery-lab\"}",
+                                  "legendFormat": "{{phase}} {{release}} {{pod}}"
+                                }
+                              ],
+                              "fieldConfig": {
+                                "defaults": {
+                                  "unit": "short"
+                                },
+                                "overrides": []
+                              },
+                              "options": {
+                                "legend": {
+                                  "displayMode": "list",
+                                  "placement": "bottom"
+                                }
+                              }
+                            },
+                            {
+                              "id": 5,
+                              "title": "Delivered notifications",
+                              "type": "timeseries",
+                              "gridPos": {
+                                "h": 8,
+                                "w": 12,
+                                "x": 0,
+                                "y": 16
+                              },
+                              "datasource": {
+                                "type": "prometheus",
+                                "uid": "prometheus"
+                              },
+                              "targets": [
+                                {
+                                  "refId": "A",
+                                  "expr": "lab_notifications_total",
+                                  "legendFormat": "{{phase}} {{release}} {{pod}}"
+                                }
+                              ],
+                              "fieldConfig": {
+                                "defaults": {
+                                  "unit": "short"
+                                },
+                                "overrides": []
+                              },
+                              "options": {
+                                "legend": {
+                                  "displayMode": "list",
+                                  "placement": "bottom"
+                                }
+                              }
+                            },
+                            {
+                              "id": 6,
+                              "title": "Service scrape health",
+                              "type": "timeseries",
+                              "gridPos": {
+                                "h": 8,
+                                "w": 12,
+                                "x": 12,
+                                "y": 16
+                              },
+                              "datasource": {
+                                "type": "prometheus",
+                                "uid": "prometheus"
+                              },
+                              "targets": [
+                                {
+                                  "refId": "A",
+                                  "expr": "up{job=\"lab-services\"}",
+                                  "legendFormat": "{{phase}} {{release}} {{pod}}"
+                                }
+                              ],
+                              "fieldConfig": {
+                                "defaults": {
+                                  "unit": "short"
+                                },
+                                "overrides": []
+                              },
+                              "options": {
+                                "legend": {
+                                  "displayMode": "list",
+                                  "placement": "bottom"
+                                }
+                              }
+                            }
+                          ]
+                        }
+            EOT,
+        ]
+      [32m+[0m[0m verify                     = false
+      [32m+[0m[0m version                    = "10.5.15"
+      [32m+[0m[0m wait                       = true
+      [32m+[0m[0m wait_for_jobs              = false
+    }
+
+[1m  # helm_release.ingress[0m will be created
+[0m  [32m+[0m[0m resource "helm_release" "ingress" {
+      [32m+[0m[0m atomic                     = false
+      [32m+[0m[0m chart                      = "ingress-nginx"
+      [32m+[0m[0m cleanup_on_fail            = false
+      [32m+[0m[0m create_namespace           = true
+      [32m+[0m[0m dependency_update          = false
+      [32m+[0m[0m disable_crd_hooks          = false
+      [32m+[0m[0m disable_openapi_validation = false
+      [32m+[0m[0m disable_webhooks           = false
+      [32m+[0m[0m force_update               = false
+      [32m+[0m[0m id                         = (known after apply)
+      [32m+[0m[0m lint                       = false
+      [32m+[0m[0m manifest                   = (known after apply)
+      [32m+[0m[0m max_history                = 0
+      [32m+[0m[0m metadata                   = (known after apply)
+      [32m+[0m[0m name                       = "ingress"
+      [32m+[0m[0m namespace                  = "ingress-nginx"
+      [32m+[0m[0m pass_credentials           = false
+      [32m+[0m[0m recreate_pods              = false
+      [32m+[0m[0m render_subchart_notes      = true
+      [32m+[0m[0m replace                    = false
+      [32m+[0m[0m repository                 = "https://kubernetes.github.io/ingress-nginx"
+      [32m+[0m[0m reset_values               = false
+      [32m+[0m[0m reuse_values               = false
+      [32m+[0m[0m skip_crds                  = false
+      [32m+[0m[0m status                     = "deployed"
+      [32m+[0m[0m timeout                    = 600
+      [32m+[0m[0m values                     = [
+          [32m+[0m[0m <<-EOT
+                controller:
+                  replicaCount: 1
+                  service:
+                    type: NodePort
+                    nodePorts:
+                      http: 30080
+                  admissionWebhooks:
+                    enabled: false
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 128Mi
+            EOT,
+        ]
+      [32m+[0m[0m verify                     = false
+      [32m+[0m[0m version                    = "4.15.1"
+      [32m+[0m[0m wait                       = true
+      [32m+[0m[0m wait_for_jobs              = false
+    }
+
+[1m  # helm_release.prometheus[0m will be created
+[0m  [32m+[0m[0m resource "helm_release" "prometheus" {
+      [32m+[0m[0m atomic                     = false
+      [32m+[0m[0m chart                      = "prometheus"
+      [32m+[0m[0m cleanup_on_fail            = false
+      [32m+[0m[0m create_namespace           = true
+      [32m+[0m[0m dependency_update          = false
+      [32m+[0m[0m disable_crd_hooks          = false
+      [32m+[0m[0m disable_openapi_validation = false
+      [32m+[0m[0m disable_webhooks           = false
+      [32m+[0m[0m force_update               = false
+      [32m+[0m[0m id                         = (known after apply)
+      [32m+[0m[0m lint                       = false
+      [32m+[0m[0m manifest                   = (known after apply)
+      [32m+[0m[0m max_history                = 0
+      [32m+[0m[0m metadata                   = (known after apply)
+      [32m+[0m[0m name                       = "prometheus"
+      [32m+[0m[0m namespace                  = "monitoring"
+      [32m+[0m[0m pass_credentials           = false
+      [32m+[0m[0m recreate_pods              = false
+      [32m+[0m[0m render_subchart_notes      = true
+      [32m+[0m[0m replace                    = false
+      [32m+[0m[0m repository                 = "https://prometheus-community.github.io/helm-charts"
+      [32m+[0m[0m reset_values               = false
+      [32m+[0m[0m reuse_values               = false
+      [32m+[0m[0m skip_crds                  = false
+      [32m+[0m[0m status                     = "deployed"
+      [32m+[0m[0m timeout                    = 600
+      [32m+[0m[0m values                     = [
+          [32m+[0m[0m <<-EOT
+                alertmanager:
+                  enabled: false
+                prometheus-pushgateway:
+                  enabled: false
+                prometheus-node-exporter:
+                  enabled: false
+                kube-state-metrics:
+                  enabled: false
+                scrapeConfigs:
+                  kubernetes-api-servers:
+                    enabled: false
+                  kubernetes-nodes:
+                    enabled: false
+                  kubernetes-nodes-cadvisor:
+                    enabled: false
+                  kubernetes-pods:
+                    enabled: false
+                  kubernetes-pods-slow:
+                    enabled: false
+                  kubernetes-service-endpoints:
+                    enabled: false
+                  kubernetes-service-endpoints-slow:
+                    enabled: false
+                  kubernetes-services:
+                    enabled: false
+                  prometheus-pushgateway:
+                    enabled: false
+                server:
+                  persistentVolume:
+                    enabled: false
+                  retention: 2h
+                  service:
+                    type: NodePort
+                    nodePort: 30909
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 192Mi
+                  global:
+                    scrape_interval: 5s
+                    scrape_timeout: 4s
+                    evaluation_interval: 5s
+                serverFiles:
+                  prometheus.yml:
+                    rule_files:
+                      - /etc/config/alerting_rules.yml
+                    scrape_configs:
+                      - job_name: lab-services
+                        kubernetes_sd_configs:
+                          - role: pod
+                        relabel_configs:
+                          - source_labels: [__meta_kubernetes_namespace]
+                            action: keep
+                            regex: delivery-lab
+                          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+                            action: keep
+                            regex: 'true'
+                          - source_labels: [__meta_kubernetes_pod_ip]
+                            target_label: __address__
+                            replacement: '$1:8000'
+                          - source_labels: [__meta_kubernetes_pod_label_rollouts_pod_template_hash]
+                            target_label: pod_hash
+                          - source_labels: [__meta_kubernetes_pod_name]
+                            target_label: pod
+                      - job_name: argo-rollouts
+                        kubernetes_sd_configs:
+                          - role: pod
+                        relabel_configs:
+                          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_app_kubernetes_io_name]
+                            action: keep
+                            regex: argo-rollouts;argo-rollouts
+                          - source_labels: [__meta_kubernetes_pod_container_port_name]
+                            action: keep
+                            regex: metrics
+                          - source_labels: [__meta_kubernetes_pod_name]
+                            target_label: pod
+                  alerting_rules.yml:
+                    groups:
+                      - name: delivery-lab
+                        rules:
+                          - alert: TicketAPIHighErrorRate
+                            expr: sum(rate(lab_http_requests_total{service="ticket-api",status=~"5.."}[1m])) / sum(rate(lab_http_requests_total{service="ticket-api"}[1m])) > 0.02
+                            for: 15s
+                            labels:
+                              severity: warning
+                            annotations:
+                              summary: Ticket API error rate exceeds 2%; inspect candidate AnalysisRun
+                          - alert: TicketAPIHighLatency
+                            expr: histogram_quantile(0.95, sum by (le) (rate(lab_http_request_duration_seconds_bucket{service="ticket-api"}[1m]))) > 0.3
+                            for: 30s
+                            labels:
+                              severity: warning
+                            annotations:
+                              summary: Ticket API p95 exceeds 300 ms
+                          - alert: ServiceUnavailable
+                            expr: up{job="lab-services"} == 0
+                            for: 30s
+                            labels:
+                              severity: critical
+                            annotations:
+                              summary: A delivery lab pod cannot be scraped
+                          - alert: CanaryDegraded
+                            expr: rollout_info{phase=~"Degraded|Abort"} == 1
+                            for: 5s
+                            labels:
+                              severity: warning
+                            annotations:
+                              summary: Canary aborted; stable traffic should be restored
+            EOT,
+        ]
+      [32m+[0m[0m verify                     = false
+      [32m+[0m[0m version                    = "29.36.1"
+      [32m+[0m[0m wait                       = true
+      [32m+[0m[0m wait_for_jobs              = false
+    }
+
+[1m  # helm_release.rollouts[0m will be created
+[0m  [32m+[0m[0m resource "helm_release" "rollouts" {
+      [32m+[0m[0m atomic                     = false
+      [32m+[0m[0m chart                      = "argo-rollouts"
+      [32m+[0m[0m cleanup_on_fail            = false
+      [32m+[0m[0m create_namespace           = true
+      [32m+[0m[0m dependency_update          = false
+      [32m+[0m[0m disable_crd_hooks          = false
+      [32m+[0m[0m disable_openapi_validation = false
+      [32m+[0m[0m disable_webhooks           = false
+      [32m+[0m[0m force_update               = false
+      [32m+[0m[0m id                         = (known after apply)
+      [32m+[0m[0m lint                       = false
+      [32m+[0m[0m manifest                   = (known after apply)
+      [32m+[0m[0m max_history                = 0
+      [32m+[0m[0m metadata                   = (known after apply)
+      [32m+[0m[0m name                       = "argo-rollouts"
+      [32m+[0m[0m namespace                  = "argo-rollouts"
+      [32m+[0m[0m pass_credentials           = false
+      [32m+[0m[0m recreate_pods              = false
+      [32m+[0m[0m render_subchart_notes      = true
+      [32m+[0m[0m replace                    = false
+      [32m+[0m[0m repository                 = "https://argoproj.github.io/argo-helm"
+      [32m+[0m[0m reset_values               = false
+      [32m+[0m[0m reuse_values               = false
+      [32m+[0m[0m skip_crds                  = false
+      [32m+[0m[0m status                     = "deployed"
+      [32m+[0m[0m timeout                    = 600
+      [32m+[0m[0m values                     = [
+          [32m+[0m[0m <<-EOT
+                controller:
+                  metrics:
+                    enabled: true
+                  resources:
+                    requests:
+                      cpu: 50m
+                      memory: 64Mi
+                dashboard:
+                  enabled: false
+            EOT,
+        ]
+      [32m+[0m[0m verify                     = false
+      [32m+[0m[0m version                    = "2.43.6"
+      [32m+[0m[0m wait                       = true
+      [32m+[0m[0m wait_for_jobs              = false
+    }
+
+[1m  # kind_cluster.lab[0m will be created
+[0m  [32m+[0m[0m resource "kind_cluster" "lab" {
+      [32m+[0m[0m client_certificate     = (known after apply)
+      [32m+[0m[0m client_key             = (known after apply)
+      [32m+[0m[0m cluster_ca_certificate = (known after apply)
+      [32m+[0m[0m completed              = (known after apply)
+      [32m+[0m[0m endpoint               = (known after apply)
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m kubeconfig             = (known after apply)
+      [32m+[0m[0m kubeconfig_path        = "C:/Users/Nazmul/AppData/Local/Temp/platform-delivery-lab-prepublish-bee034034c80443b820ca21b6fb64a39/.kube/config"
+      [32m+[0m[0m name                   = "platform-delivery-lab"
+      [32m+[0m[0m node_image             = "kindest/node:v1.35.0"
+      [32m+[0m[0m wait_for_ready         = true
+
+      [32m+[0m[0m kind_config {
+          [32m+[0m[0m api_version = "kind.x-k8s.io/v1alpha4"
+          [32m+[0m[0m kind        = "Cluster"
+
+          [32m+[0m[0m node {
+              [32m+[0m[0m role = "control-plane"
+
+              [32m+[0m[0m extra_port_mappings {
+                  [32m+[0m[0m container_port = 30080
+                  [32m+[0m[0m host_port      = 8088
+                  [32m+[0m[0m listen_address = "127.0.0.1"
+                }
+              [32m+[0m[0m extra_port_mappings {
+                  [32m+[0m[0m container_port = 30300
+                  [32m+[0m[0m host_port      = 3008
+                  [32m+[0m[0m listen_address = "127.0.0.1"
+                }
+              [32m+[0m[0m extra_port_mappings {
+                  [32m+[0m[0m container_port = 30909
+                  [32m+[0m[0m host_port      = 9098
+                  [32m+[0m[0m listen_address = "127.0.0.1"
+                }
+            }
+        }
+    }
+
+[1mPlan:[0m 5 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m console = "http://localhost:8088"
+  [32m+[0m[0m grafana = "http://localhost:3008/d/lab/platform-delivery-lab"
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to: lab.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "lab.tfplan"
+[0m[1mkind_cluster.lab: Creating...[0m[0m
+[0m[1mkind_cluster.lab: Still creating... [00m10s elapsed][0m[0m
+[0m[1mkind_cluster.lab: Still creating... [00m20s elapsed][0m[0m
+[0m[1mkind_cluster.lab: Still creating... [00m30s elapsed][0m[0m
+[0m[1mkind_cluster.lab: Creation complete after 39s [id=platform-delivery-lab-kindest/node:v1.35.0][0m
+[0m[1mhelm_release.prometheus: Creating...[0m[0m
+[0m[1mhelm_release.ingress: Creating...[0m[0m
+[0m[1mhelm_release.grafana: Creating...[0m[0m
+[0m[1mhelm_release.rollouts: Creating...[0m[0m
+[0m[1mhelm_release.prometheus: Still creating... [00m10s elapsed][0m[0m
+[0m[1mhelm_release.ingress: Still creating... [00m10s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Still creating... [00m10s elapsed][0m[0m
+[0m[1mhelm_release.rollouts: Still creating... [00m10s elapsed][0m[0m
+[0m[1mhelm_release.prometheus: Still creating... [00m20s elapsed][0m[0m
+[0m[1mhelm_release.ingress: Still creating... [00m20s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Still creating... [00m20s elapsed][0m[0m
+[0m[1mhelm_release.rollouts: Still creating... [00m20s elapsed][0m[0m
+[0m[1mhelm_release.prometheus: Still creating... [00m30s elapsed][0m[0m
+[0m[1mhelm_release.ingress: Still creating... [00m30s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Still creating... [00m30s elapsed][0m[0m
+[0m[1mhelm_release.rollouts: Still creating... [00m30s elapsed][0m[0m
+[0m[1mhelm_release.ingress: Creation complete after 36s [id=ingress][0m
+[0m[1mhelm_release.rollouts: Creation complete after 36s [id=argo-rollouts][0m
+[0m[1mhelm_release.prometheus: Still creating... [00m40s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Still creating... [00m40s elapsed][0m[0m
+[0m[1mhelm_release.prometheus: Still creating... [00m50s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Still creating... [00m50s elapsed][0m[0m
+[0m[1mhelm_release.prometheus: Still creating... [01m00s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Still creating... [01m00s elapsed][0m[0m
+[0m[1mhelm_release.prometheus: Still creating... [01m10s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Still creating... [01m10s elapsed][0m[0m
+[0m[1mhelm_release.prometheus: Still creating... [01m20s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Still creating... [01m20s elapsed][0m[0m
+[0m[1mhelm_release.prometheus: Creation complete after 1m24s [id=prometheus][0m
+[0m[1mhelm_release.grafana: Still creating... [01m30s elapsed][0m[0m
+[0m[1mhelm_release.grafana: Creation complete after 1m32s [id=grafana][0m
+[0m[1m[32m
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mconsole = "http://localhost:8088"
+grafana = "http://localhost:3008/d/lab/platform-delivery-lab"
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 721B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 107B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 6.87kB 0.0s done
+#4 DONE 0.0s
+
+#5 [builder 1/4] FROM docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+#5 resolve docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258 0.0s done
+#5 DONE 0.0s
+
+#6 [builder 3/4] COPY requirements.txt requirements-lock.txt ./
+#6 CACHED
+
+#7 [runtime 5/6] COPY services/common.py services/__init__.py ./services/
+#7 CACHED
+
+#8 [builder 2/4] WORKDIR /build
+#8 CACHED
+
+#9 [builder 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+#9 CACHED
+
+#10 [runtime 4/6] WORKDIR /app
+#10 CACHED
+
+#11 [runtime 2/6] RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --no-create-home app
+#11 CACHED
+
+#12 [runtime 3/6] COPY --from=builder /install /usr/local
+#12 CACHED
+
+#13 [runtime 6/6] COPY services/ticket_api/ ./services/ticket_api/
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:6519bcee27ce2254cbd4bae008de21acc20e1f5b571d1b46530a243f897d9ab0 done
+#14 exporting config sha256:780ffc9fb2c9a2c0ab6afdea8ca3b4442a81a92e89c4cea1904927004775cd33 done
+#14 exporting attestation manifest sha256:3193b3b81b166260679971e051965b5297c282faf2b67ac161c3dddb7b4a285b
+#14 exporting attestation manifest sha256:3193b3b81b166260679971e051965b5297c282faf2b67ac161c3dddb7b4a285b 0.0s done
+#14 exporting manifest list sha256:da0ae24e479be1d12a68dbc8191668dca55b29af9a7215d8abfd63707a23968e 0.0s done
+#14 naming to ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local done
+#14 unpacking to ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local 0.0s done
+#14 DONE 0.2s
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 721B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 107B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 8.05kB done
+#4 DONE 0.0s
+
+#5 [builder 1/4] FROM docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+#5 resolve docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258 0.0s done
+#5 DONE 0.0s
+
+#6 [builder 2/4] WORKDIR /build
+#6 CACHED
+
+#7 [runtime 4/6] WORKDIR /app
+#7 CACHED
+
+#8 [runtime 5/6] COPY services/common.py services/__init__.py ./services/
+#8 CACHED
+
+#9 [runtime 3/6] COPY --from=builder /install /usr/local
+#9 CACHED
+
+#10 [builder 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+#10 CACHED
+
+#11 [runtime 2/6] RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --no-create-home app
+#11 CACHED
+
+#12 [builder 3/4] COPY requirements.txt requirements-lock.txt ./
+#12 CACHED
+
+#13 [runtime 6/6] COPY services/notification_worker/ ./services/notification_worker/
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers
+#14 exporting layers done
+#14 exporting manifest sha256:db2ae152373711fb6b146338c8046d1af8343b913911a9fe4b25b30b070bab99 done
+#14 exporting config sha256:d103cc5538556e445508c87eed9753517e2c885601c4a643ba86470bbf9ab404 done
+#14 exporting attestation manifest sha256:635674aa4e3bc75417e37e3968cee9a8dec44df7229d8c035c89f344a6f25d25 0.0s done
+#14 exporting manifest list sha256:33ae9bacd1a2d0e5eb8a8ab9dc51a5aa2559595c7605b33514d88ffa65a7d23d 0.0s done
+#14 naming to ghcr.io/iamnajib71/platform-delivery-lab/notification-worker:local done
+#14 unpacking to ghcr.io/iamnajib71/platform-delivery-lab/notification-worker:local 0.0s done
+#14 DONE 0.1s
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 721B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 107B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 6.52kB done
+#4 DONE 0.0s
+
+#5 [builder 1/4] FROM docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+#5 resolve docker.io/library/python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258 0.0s done
+#5 DONE 0.0s
+
+#6 [builder 2/4] WORKDIR /build
+#6 CACHED
+
+#7 [runtime 3/6] COPY --from=builder /install /usr/local
+#7 CACHED
+
+#8 [builder 3/4] COPY requirements.txt requirements-lock.txt ./
+#8 CACHED
+
+#9 [runtime 4/6] WORKDIR /app
+#9 CACHED
+
+#10 [builder 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+#10 CACHED
+
+#11 [runtime 2/6] RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --no-create-home app
+#11 CACHED
+
+#12 [runtime 5/6] COPY services/common.py services/__init__.py ./services/
+#12 CACHED
+
+#13 [runtime 6/6] COPY services/web_frontend/ ./services/web_frontend/
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:3604806ed797a463f040bef684ced535960fc4444dd9896eb3fbeae34fb8dfc6 done
+#14 exporting config sha256:cc000367130766580774dfc0cff223034853d534ce95dc9bacfa1c825f1a846f done
+#14 exporting attestation manifest sha256:981430259e0bc36089ffd8ddfc9ade1849bea89bcf0b000a93be58582b038a55 0.0s done
+#14 exporting manifest list sha256:de74edb32b3508bf5287ed1ac1e5527cb8cdb22b87ed0cda785ba33ac0a6dd29 0.0s done
+#14 naming to ghcr.io/iamnajib71/platform-delivery-lab/web-frontend:local done
+#14 unpacking to ghcr.io/iamnajib71/platform-delivery-lab/web-frontend:local 0.0s done
+#14 DONE 0.1s
+2026-10-09T15:01:58Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-09T15:02:01Z	INFO	Detected OS	family="debian" version="12.15"
+2026-10-09T15:02:01Z	INFO	[debian] Detecting vulnerabilities...	os_version="12" pkg_num=105
+2026-10-09T15:02:01Z	INFO	Number of language-specific files	num=1
+2026-10-09T15:02:01Z	INFO	[python-pkg] Detecting vulnerabilities...
+2026-10-09T15:02:01Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
+2026-10-09T15:02:09Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-09T15:02:13Z	INFO	Detected OS	family="debian" version="12.15"
+2026-10-09T15:02:13Z	INFO	[debian] Detecting vulnerabilities...	os_version="12" pkg_num=105
+2026-10-09T15:02:13Z	INFO	Number of language-specific files	num=1
+2026-10-09T15:02:13Z	INFO	[python-pkg] Detecting vulnerabilities...
+2026-10-09T15:02:13Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
+2026-10-09T15:02:20Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-09T15:02:22Z	INFO	Detected OS	family="debian" version="12.15"
+2026-10-09T15:02:22Z	INFO	[debian] Detecting vulnerabilities...	os_version="12" pkg_num=105
+2026-10-09T15:02:22Z	INFO	Number of language-specific files	num=1
+2026-10-09T15:02:22Z	INFO	[python-pkg] Detecting vulnerabilities...
+2026-10-09T15:02:22Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
+Image: "ghcr.io/iamnajib71/platform-delivery-lab/ticket-api:local" with ID "sha256:da0ae24e479be1d12a68dbc8191668dca55b29af9a7215d8abfd63707a23968e" not yet present on node "platform-delivery-lab-control-plane", loading...
+Image: "ghcr.io/iamnajib71/platform-delivery-lab/notification-worker:local" with ID "sha256:33ae9bacd1a2d0e5eb8a8ab9dc51a5aa2559595c7605b33514d88ffa65a7d23d" not yet present on node "platform-delivery-lab-control-plane", loading...
+Image: "ghcr.io/iamnajib71/platform-delivery-lab/web-frontend:local" with ID "sha256:de74edb32b3508bf5287ed1ac1e5527cb8cdb22b87ed0cda785ba33ac0a6dd29" not yet present on node "platform-delivery-lab-control-plane", loading...
+
+
+
+namespace/delivery-lab created
+
+service/ticket-stable created
+service/ticket-canary created
+service/notification-worker created
+service/web-frontend created
+
+analysistemplate.argoproj.io/candidate-health created
+
+deployment.apps/notification-worker created
+deployment.apps/web-frontend created
+
+rollout.argoproj.io/ticket-api created
+
+ingress.networking.k8s.io/ticket-api created
+ingress.networking.k8s.io/console created
+
+Waiting for deployment "notification-worker" rollout to finish: 0 of 1 updated replicas are available...
+deployment "notification-worker" successfully rolled out
+
+deployment "web-frontend" successfully rolled out
+
+ticket-api Healthy
+configmap/load-script created
+
+deployment.apps/load-generator created
+
+Waiting for deployment "load-generator" rollout to finish: 0 of 1 updated replicas are available...
+deployment "load-generator" successfully rolled out
+
+{"smoke": "passed", "frontend": 200, "ticket_create": 201, "notification": "delivered", "ticket_id": "ce72b9a1-29ab-4806-a293-da5d95ef4c08"}
+GOOD RELEASE: real ingress 10% -> analysis -> 50% -> analysis -> 100%
+rollout.argoproj.io/ticket-api patched
+
+15:03:06 good-150305  Progressing  step=0  traffic=  0% abort=False stable=68dc84478
+15:03:08 good-150305  Progressing  step=0  traffic= 10% abort=False stable=68dc84478
+15:03:10 good-150305  Paused       step=1  traffic= 10% abort=False stable=68dc84478
+15:03:43 good-150305  Progressing  step=2  traffic= 10% abort=False stable=68dc84478
+15:04:03 good-150305  Paused       step=4  traffic= 50% abort=False stable=68dc84478
+15:04:40 good-150305  Progressing  step=5  traffic= 50% abort=False stable=68dc84478
+15:04:59 good-150305  Paused       step=7  traffic=100% abort=False stable=68dc84478
+15:05:04 good-150305  Healthy      step=8  traffic=  0% abort=False stable=6b998f8d9f
+GOOD RELEASE PROMOTED
+BAD RELEASE: inject HTTP 500; expect analysis failure and automatic abort
+rollout.argoproj.io/ticket-api patched
+
+15:05:04 bad-150305   Progressing  step=0  traffic=  0% abort=False stable=6b998f8d9f
+15:05:06 bad-150305   Paused       step=1  traffic= 10% abort=False stable=6b998f8d9f
+15:05:41 bad-150305   Degraded     step=0  traffic=  0% abort=True stable=6b998f8d9f
+AUTOMATIC ROLLBACK VERIFIED: canary weight 0; 30/30 requests served by good release
+PROMETHEUS ALERT VERIFIED: CanaryDegraded is firing
+{"at": "2026-10-09T15:05:57.332124+00:00", "good_release": "good-150305", "bad_release": "bad-150305", "good_analysis_runs": 2, "automatic_abort": true, "canary_weight_after_abort": 0, "recovery_requests": 30, "recovery_successes": 30, "stable_hash": "6b998f8d9f", "bad_hash": "65bf685bb8", "rollback_alert": "firing"}
+Console: http://localhost:8088
+Grafana: http://localhost:3008/d/lab/platform-delivery-lab

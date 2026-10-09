@@ -1,0 +1,20 @@
+{
+  "terraform_resources_created": 5,
+  "exit_code": 0,
+  "platform": "Windows / PowerShell 7 / Docker Desktop Linux",
+  "command": "pwsh -NoProfile -File scripts/lab.ps1 up",
+  "tested_runtime_commit": "8cc42c160b02e11770e398df027e0f34b8b4be6e",
+  "summary": {
+    "at": "2026-10-10T02:05:57.332124+11:00",
+    "good_release": "good-150305",
+    "bad_release": "bad-150305",
+    "good_analysis_runs": 2,
+    "automatic_abort": true,
+    "canary_weight_after_abort": 0,
+    "recovery_requests": 30,
+    "recovery_successes": 30,
+    "stable_hash": "6b998f8d9f",
+    "bad_hash": "65bf685bb8",
+    "rollback_alert": "firing"
+  }
+}
