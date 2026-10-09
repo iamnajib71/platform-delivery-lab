@@ -107,4 +107,12 @@ jobs:
           path: artifacts/
       - name: Destroy the ephemeral platform
         if: always()
-        run: terraform -chdir=infra destroy -auto-approve
+        # The kind provider's destroy diff includes generated cluster client credentials.
+        # Keep it outside the checkout, public logs, and uploaded artifacts.
+        run: |
+          if terraform -chdir=infra destroy -auto-approve > "$RUNNER_TEMP/terraform-destroy.log" 2>&1; then
+            echo "Terraform destroyed the local platform and cluster."
+          else
+            echo "::error::Terraform cleanup failed; credential-bearing diagnostics remain private."
+            exit 1
+          fi
