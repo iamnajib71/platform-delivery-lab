@@ -9,10 +9,10 @@ Ship three containerised services through a local Kubernetes canary pipeline tha
 **Runs locally.** No paid cloud account, public cluster, external credentials, or hosted backend.
 The GIF records the actual rollout command with asciinema and agg; playback is accelerated 3×.
 
-## What it shows recruiters
+## Technical capabilities
 
-- **Junior DevOps / platform engineering:** Terraform provisions kind and Helm releases; CI tests, builds, scans, publishes images, deploys, and smoke-tests the same manifests used locally.
-- **Cloud support / operations:** structured request logs, health probes, Prometheus metrics, Grafana panels, alert rules, and an [incident runbook](ops/runbook.md).
+- **Infrastructure and delivery:** Terraform provisions kind and Helm releases; CI tests, builds, scans, publishes images, deploys, and smoke-tests the same manifests used locally.
+- **Observability and operations:** structured request logs, health probes, Prometheus metrics, Grafana panels, alert rules, and an [incident runbook](ops/runbook.md).
 - **Release coordination:** real ingress traffic moves through 10% → 50% → 100%; candidate-specific error and latency gates reject a faulty release and restore stable traffic without manual promotion or rollback.
 
 ## Architecture
