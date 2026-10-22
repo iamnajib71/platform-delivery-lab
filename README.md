@@ -1,33 +1,37 @@
-Ship three containerised services through a local Kubernetes canary pipeline that measures health and automatically restores stable traffic.
+# Platform Delivery Lab
 
-<!-- project-overview:start -->
-## Project overview
+I built a local release pipeline that gradually sends traffic to a new service, measures its health and automatically restores healthy traffic when a release fails.
 
-| Area | What to look for |
+![Real canary promotion and automatic traffic rollback](docs/demo.gif)
+
+[![CI](https://github.com/iamnajib71/platform-delivery-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/iamnajib71/platform-delivery-lab/actions/workflows/ci.yml) · [MIT licence](LICENSE)
+
+## At a glance
+
+| Area | Evidence-backed summary |
 | --- | --- |
-| **Problem addressed** | A faulty application release needs to be detected under traffic and withdrawn while stable requests continue working. |
-| **Implemented work** | Built three containerised services, Terraform-managed kind/Helm infrastructure and a gated delivery pipeline. Demonstrated canary promotion and automatic rollback using candidate error and latency measurements. |
-| **Skills demonstrated** | Terraform, Kubernetes, Helm, GitHub Actions, container scanning, Prometheus, Grafana, Argo Rollouts and incident operations. |
-| **Demo** | [Watch the actual promotion and rollback](docs/demo.gif); the recording plays at 3× speed. |
-| **How to use it** | [Quick start](#quick-start--windows): run `scripts/lab.ps1 up`. Expected: the ticket console works, a healthy candidate promotes and a bad candidate is aborted while stable traffic returns HTTP 200. |
-| **Verification** | [Recorded rollout screenshots](#screenshots), CI and the [incident runbook](ops/runbook.md). The cluster and delivery are local lab scope. |
+| **The problem** | A release coordinator and support team need to catch a faulty ticket-service release before it disrupts all users; manual promotion without candidate-specific health checks can extend an outage. This lab uses synthetic traffic. |
+| **What I built** | I containerised the ticket frontend, API and worker, provisioned a local Kubernetes platform and automated build, scan, deployment, canary analysis and traffic rollback. |
+| **Results** | [12 unit/contract tests passed; the faulty canary was aborted, its traffic returned to 0%, and 30/30 recovery requests succeeded](docs/evidence/results.json). [Raw scans and deployment evidence](docs/evidence/README.md) retain the gate limits. |
+| **Skills shown** | Kubernetes, Docker, Terraform, Helm, GitHub Actions, CI/CD, Argo Rollouts, Prometheus, Grafana, Python and incident response. |
+| **Relevant roles** | Junior DevOps Engineer, Platform Engineer, Cloud Support Associate, Release Coordinator. |
+| **How it was built** | Designed, specified and reviewed by me; built with Codex as my coding agent (vibe coding). Verification and its limits are linked below. |
+| **Try it / evidence** | [Demo](docs/demo.gif) · [Windows quick start](#quick-start--windows) · [Evidence register](docs/evidence/README.md) · [Incident runbook](ops/runbook.md) |
 
-<!-- project-overview:end -->
+## What I did, step by step
 
-![Real canary promotion and automatic rollback](docs/demo.gif)
+1. Defined a ticket submission path and implemented the frontend, API and worker with unit and cross-service contract tests.
+2. Provisioned the local cluster and platform releases with Terraform and Helm; kept cluster credentials out of source control.
+3. Added image builds, vulnerability gates and software inventories to the [delivery workflow](.github/workflows/ci.yml).
+4. Configured candidate-specific request, error and latency checks so healthy stable traffic could not hide a failing canary.
+5. Ran healthy and deliberately faulty releases, then checked automated traffic rollback and stable recovery in the [recorded evidence](docs/evidence/README.md).
+6. Verified alerts, dashboards and the [incident procedure](ops/runbook.md), then repeated the full command from a fresh Windows checkout.
 
-[![CI](https://github.com/iamnajib71/platform-delivery-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/iamnajib71/platform-delivery-lab/actions/workflows/ci.yml)
-[![MIT licence](https://img.shields.io/badge/licence-MIT-teal)](LICENSE)
-![Python](https://img.shields.io/badge/Python-3.12-blue)
+## Problems I hit and how I solved them
 
-**Runs locally.** No paid cloud account, public cluster, external credentials, or hosted backend.
-The GIF records the actual rollout command with asciinema and agg; playback is accelerated 3×.
-
-## Technical capabilities
-
-- **Infrastructure and delivery:** Terraform provisions kind and Helm releases; CI tests, builds, scans, publishes images, deploys, and smoke-tests the same manifests used locally.
-- **Observability and operations:** structured request logs, health probes, Prometheus metrics, Grafana panels, alert rules, and an [incident runbook](ops/runbook.md).
-- **Release coordination:** real ingress traffic moves through 10% → 50% → 100%; candidate-specific error and latency gates reject a faulty release and restore stable traffic without manual promotion or rollback.
+- **The alert scrape could land on a controller follower with no rollout state:** changed discovery to scrape each controller pod and retained firing-alert evidence. [Runbook explanation](ops/runbook.md#alert-behavior) · [fixing commit](https://github.com/iamnajib71/platform-delivery-lab/commit/8cc42c1).
+- **The aborted rollout used a different metric phase:** accepted both Abort and Degraded in the alert rule and verified a firing alert during the demo. [Runbook and evidence](ops/runbook.md#alert-behavior) · [fixing commit](https://github.com/iamnajib71/platform-delivery-lab/commit/a39269e).
+- **Traffic recovery leaves the rejected desired template visible:** documented how to distinguish a successful traffic rollback from restoring the desired release. [Recovery procedure](ops/runbook.md).
 
 ## Architecture
 
@@ -197,7 +201,4 @@ docs/                     Recorded GIF, actual screenshots, raw evidence, previe
 
 ## Built by Nazmul Hassan
 
-[LinkedIn](https://linkedin.com/in/iamnajib71) · [GitHub](https://github.com/iamnajib71)
-
-MIT licensed. Social preview: [docs/social-preview.png](docs/social-preview.png), 1280×640;
-upload it in GitHub Settings → General → Social preview.
+[LinkedIn](https://www.linkedin.com/in/iamnajib71) · [GitHub](https://github.com/iamnajib71)
