@@ -1,5 +1,19 @@
 Ship three containerised services through a local Kubernetes canary pipeline that measures health and automatically restores stable traffic.
 
+<!-- project-overview:start -->
+## Project overview
+
+| Area | What to look for |
+| --- | --- |
+| **Problem addressed** | A faulty application release needs to be detected under traffic and withdrawn while stable requests continue working. |
+| **Implemented work** | Built three containerised services, Terraform-managed kind/Helm infrastructure and a gated delivery pipeline. Demonstrated canary promotion and automatic rollback using candidate error and latency measurements. |
+| **Skills demonstrated** | Terraform, Kubernetes, Helm, GitHub Actions, container scanning, Prometheus, Grafana, Argo Rollouts and incident operations. |
+| **Demo** | [Watch the actual promotion and rollback](docs/demo.gif); the recording plays at 3× speed. |
+| **How to use it** | [Quick start](#quick-start--windows): run `scripts/lab.ps1 up`. Expected: the ticket console works, a healthy candidate promotes and a bad candidate is aborted while stable traffic returns HTTP 200. |
+| **Verification** | [Recorded rollout screenshots](#screenshots), CI and the [incident runbook](ops/runbook.md). The cluster and delivery are local lab scope. |
+
+<!-- project-overview:end -->
+
 ![Real canary promotion and automatic rollback](docs/demo.gif)
 
 [![CI](https://github.com/iamnajib71/platform-delivery-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/iamnajib71/platform-delivery-lab/actions/workflows/ci.yml)
