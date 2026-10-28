@@ -15,7 +15,6 @@ I built a local release pipeline that gradually sends traffic to a new service, 
 | **Results** | [12 unit/contract tests passed; the faulty canary was aborted, its traffic returned to 0%, and 30/30 recovery requests succeeded](docs/evidence/results.json). [Raw scans and deployment evidence](docs/evidence/README.md) retain the gate limits. |
 | **Skills shown** | Kubernetes, Docker, Terraform, Helm, GitHub Actions, CI/CD, Argo Rollouts, Prometheus, Grafana, Python and incident response. |
 | **Relevant roles** | Junior DevOps Engineer, Platform Engineer, Cloud Support Associate, Release Coordinator. |
-| **How it was built** | Designed, specified and reviewed by me; built with Codex as my coding agent (vibe coding). Verification and its limits are linked below. |
 | **Try it / evidence** | [Demo](docs/demo.gif) · [Windows quick start](#quick-start--windows) · [Evidence register](docs/evidence/README.md) · [Incident runbook](ops/runbook.md) |
 
 ## What I did, step by step
