@@ -11,8 +11,6 @@ htmlcov/
 *.tfplan
 .kube/
 .env
-AGENTS.md
-CLAUDE.md
 CONTRIBUTING.md
 artifacts/
 *.cast
